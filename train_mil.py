@@ -72,7 +72,7 @@ def main():
 
     # Model, Optimizer, Loss
     model = AttentionMIL(num_classes=NUM_CLASSES).to(DEVICE)
-    optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-4)
     scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.2, patience=10, min_lr=1e-8) # Monitor kappa
 
     best_kappa = -1

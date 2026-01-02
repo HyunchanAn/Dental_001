@@ -25,7 +25,12 @@ class AttentionMIL(nn.Module):
 
         # 3. 최종 분류기 (Ordinal Regression을 위한 CORAL 방식)
         # K개의 클래스에 대해 K-1개의 로짓을 출력
-        self.classifier = nn.Linear(feature_dim, num_classes - 1)
+        self.classifier = nn.Sequential(
+            nn.Linear(feature_dim, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(512, num_classes - 1)
+        )
 
     def forward(self, x):
         # x shape: (batch_size, num_patches, C, H, W)
