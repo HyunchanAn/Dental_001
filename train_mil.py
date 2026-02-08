@@ -36,12 +36,18 @@ def logits_to_prediction(logits):
 # --- Main Training Script --- #
 def main():
     # Hyperparameters
-    DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-    BATCH_SIZE = config.BATCH_SIZE
+    if torch.cuda.is_available():
+        DEVICE = 'cuda'
+    elif torch.backends.mps.is_available():
+        DEVICE = 'mps'
+    else:
+        DEVICE = 'cpu'
+        
+    BATCH_SIZE = 8
     EPOCHS = 200 # As per memo
     LR = 1e-4 # Start with a lower LR for fine-tuning based approaches
     NUM_PATCHES = 16
-    PATCH_SIZE = 128
+    PATCH_SIZE = 224
     NUM_CLASSES = 6
 
     print(f"Using device: {DEVICE}")
@@ -72,7 +78,7 @@ def main():
 
     # Model, Optimizer, Loss
     model = AttentionMIL(num_classes=NUM_CLASSES).to(DEVICE)
-    optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-4)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=1e-4)
     scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.2, patience=10, min_lr=1e-8) # Monitor kappa
 
     best_kappa = -1
