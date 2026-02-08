@@ -20,7 +20,12 @@ from config import (
 )
 
 # --- Hyperparameters ---
-DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+if torch.cuda.is_available():
+    DEVICE = 'cuda'
+elif torch.backends.mps.is_available():
+    DEVICE = 'mps'
+else:
+    DEVICE = 'cpu'
 LEARNING_RATE = 1e-4
 BATCH_SIZE = 4 # Keep small for 512x512 images
 EPOCHS = 150
