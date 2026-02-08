@@ -7,9 +7,10 @@ import random
 import json
 import cv2
 import numpy as np
+from torchvision import transforms
 
 class MILDataset(Dataset):
-    def __init__(self, mode, dataset_path="Aariz", transform=None, num_patches=16, patch_size=128):
+    def __init__(self, mode, dataset_path="Aariz", transform=None, num_patches=16, patch_size=224):
         if mode.upper() not in ["TRAIN", "VALID", "TEST"]:
             raise ValueError("mode could only be TRAIN, VALID or TEST")
         
@@ -23,6 +24,16 @@ class MILDataset(Dataset):
         self.labels_root = os.path.join(self.dataset_path, self.mode, "Annotations", "CVM Stages")
         
         self.image_files = sorted(os.listdir(self.images_root))
+        
+        # 훈련 시 추가적인 증강 정의 (torchvision 기준)
+        if self.mode == "train":
+            self.train_aug = transforms.Compose([
+                transforms.RandomRotation(15),
+                transforms.ColorJitter(brightness=0.2, contrast=0.2),
+                transforms.RandomHorizontalFlip(p=0.5)
+            ])
+        else:
+            self.train_aug = None
 
     def __len__(self):
         return len(self.image_files)
@@ -48,17 +59,23 @@ class MILDataset(Dataset):
 
         w, h = original_pil_image.size
 
-        # 4. Define patch sampling area (lower 50% of the image)
-        sampling_y_min = h // 2
+        # 4. Define patch sampling area (lower 60% of the image)
+        sampling_y_min = int(h * 0.4)
         
         patches = []
         for _ in range(self.num_patches):
             # 5. Sample a patch
+            # 경추는 주로 뒤쪽에 있으므로, 좌우 중 한곳에 집중될 가능성이 높음
+            # 여기서는 우선 전체 가로 영역을 보되, 세로 영역을 조금 더 넓힘(하위 60%)
             rand_x = random.randint(0, w - self.patch_size)
             rand_y = random.randint(sampling_y_min, h - self.patch_size)
             
             patch = original_pil_image.crop((rand_x, rand_y, rand_x + self.patch_size, rand_y + self.patch_size))
             
+            # Apply training augmentation to the PIL patch if in train mode
+            if self.train_aug:
+                patch = self.train_aug(patch)
+                
             if self.transform:
                 patch = self.transform(patch)
             

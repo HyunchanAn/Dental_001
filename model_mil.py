@@ -32,7 +32,7 @@ class AttentionMIL(nn.Module):
             nn.Linear(512, num_classes - 1)
         )
 
-    def forward(self, x):
+    def forward(self, x, return_attention=False):
         # x shape: (batch_size, num_patches, C, H, W)
         batch_size, num_patches, C, H, W = x.shape
         
@@ -64,6 +64,9 @@ class AttentionMIL(nn.Module):
 
         # 최종 분류
         logits = self.classifier(M)
+        
+        if return_attention:
+            return logits, A
         return logits
 
 
