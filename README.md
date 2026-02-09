@@ -22,12 +22,26 @@
 
 ---
 
+## 📂 프로젝트 구조 (Project Structure)
+
+본 프로젝트는 유지보수와 전문적인 개발 환경을 위해 다음과 같이 체계적으로 구조화되어 있습니다.
+
+- **`src/`**: 핵심 소스 코드. 모델 정의, 데이터셋 로드 로직 등 (백엔드 엔진)
+- **`scripts/`**: 실행용 스크립트. 데이터 전처리, YOLO/Classifier 학습 (작업 공정)
+- **`tools/`**: 실무용 엔드포인트 도구. 통합 인퍼런스(`inference.py`), 라벨링 툴 (최종 제품)
+- **`analysis/`**: 데이터 분석 및 시각화 도구. 분포 분석, Attention 분석, 고급 시각화
+- **`docs/`**: 프로젝트 기록관. 개발 일지(`development_log.txt`), 전략 기획서, 메모
+- **`checkpoints/`**: 학습된 모델 가중치 파일 (.pth, .pt) 저장소
+- **`archive/`**: 과거 실험 코드 및 참고용 구버전 스크립트 보관소
+
+---
+
 ## 🛠️ 주요 기능 및 사용법
 
 ### 1. 통합 분석 (Inference)
 이미지 한 장으로 경추 검출과 CVM 단계 판독을 동시에 수행합니다.
 ```bash
-python inference.py
+python tools/inference.py
 ```
 - 테스트 세트에서 랜덤으로 샘플을 추출하여 시각화 결과(`inference_results.png`)를 생성합니다.
 
@@ -36,16 +50,16 @@ python inference.py
 
 1. **ROI 라벨링**: YOLO 학습을 위한 경추 영역 박싱 (180장 완료)
    ```bash
-   python labeling_tool.py
+   python tools/labeling_tool.py
    ```
 2. **Detector 학습**: YOLOv8를 이용한 경추 검출기 학습
    ```bash
-   python train_yolo.py
+   python scripts/train_yolo.py
    ```
 3. **Classifier 학습**: 검출된 ROI를 이용한 EfficientNet 분류기 학습
    ```bash
-   python prepare_classification_data.py
-   python train_classifier.py
+   python scripts/prepare_classification_data.py
+   python scripts/train_classifier.py
    ```
 
 ---

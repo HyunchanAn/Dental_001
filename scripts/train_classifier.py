@@ -13,7 +13,12 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, models
 
-import config
+import sys
+from pathlib import Path
+# 프로젝트 루트를 경로에 추가
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src import config
 
 # --- Configuration ---
 DATA_DIR = 'Aariz_CVM_Clean'
