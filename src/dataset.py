@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
-from config import NUM_LANDMARKS # IMAGE_SIZE is now passed as an argument
+from .config import NUM_LANDMARKS # IMAGE_SIZE is now passed as an argument
 
 class HeatmapDataset(Dataset):
     

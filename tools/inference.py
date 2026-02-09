@@ -10,7 +10,11 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from torchvision import transforms, models
 from ultralytics import YOLO
-import config
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src import config
 
 # --- Configuration ---
 DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")

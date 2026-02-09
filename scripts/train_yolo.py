@@ -1,7 +1,11 @@
 
 from ultralytics import YOLO
 import os
-import config
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src import config
 
 # --- Configuration ---
 DATA_YAML = os.path.join(config.DATASET_PATH, 'yolo_dataset', 'data.yaml')

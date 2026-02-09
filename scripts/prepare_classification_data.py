@@ -5,7 +5,11 @@ import cv2
 import glob
 import json
 from ultralytics import YOLO
-import config
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src import config
 
 # --- Configuration ---
 SOURCE_DS_PATH = config.DATASET_PATH # 'Aariz'
