@@ -20,6 +20,25 @@
   <img src="inference_results.png" width="800">
 </p>
 
+### 3. 실시간 분석 예시 (Live Analysis Example)
+
+<table>
+<tr>
+<td align="center"><b>원본 이미지 (Original)</b></td>
+<td align="center"><b>분석 결과 (Analysis Result)</b></td>
+</tr>
+<tr>
+<td><img src="ceph_test.png" width="400"></td>
+<td><img src="ceph_anal.png" width="400"></td>
+</tr>
+</table>
+
+**분석 내용:**
+- 19개 해부학적 랜드마크 자동 탐지 및 라벨링
+- 경추(C2-C4) ROI 자동 검출
+- CVM 성숙도 단계 분류 및 시각화
+- 전문가급 오버레이 렌더링
+
 ---
 
 ## 💻 실행 가이드 (Quick Start)
