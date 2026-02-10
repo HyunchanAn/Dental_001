@@ -1,12 +1,39 @@
 # Python cache
 __pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
 
-# Large dataset folder - should be downloaded separately
+# Large dataset folders
 Aariz/
 Aariz.zip
 Aariz_ROI/
+Aariz_CVM_Clean/
 labeling_data/
+yolo_runs/
 
-# Trained model files
+# Trained model files & logs
 checkpoint/
-*.pth 
+checkpoints/
+*.pth
+yolov8n.pt
+*.csv
+!training_log/*.csv
+
+# PDF and Documentations
+*.pdf
+!.github/
+
+# OS/IDE temporary files
+.DS_Store
+.vscode/
+.idea/
+.ipynb_checkpoints/
+*.tmp
+temp_*.jpg
+app_temp_inf.jpg
+interim_result.jpg
+debug_dataset_output.jpg
+inference_results.png
+cvm_premium_visualization.png
