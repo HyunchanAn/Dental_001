@@ -41,7 +41,15 @@ streamlit run tools/app.py
 - `training_log/`: 훈련 지표 및 손실 곡선 기록물
 
 > [!TIP]
-> **AI 가중치 설치 안내**: GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소로 관리됩니다. 위 링크에서 가중치 파일들을 다운로드하여 `checkpoints/` 폴더 및 루트 디렉토리(`cephnet_model.pth`)에 배치한 후 앱을 실행해 주세요.
+> **AI 가중치 설치 안내 (Installation Guide)**
+> GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소로 관리됩니다. **[가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing)**에서 파일들을 다운로드하여 아래 경로에 배치해 주세요:
+>
+> | 파일명 (Filename) | 배치 경로 (Destination Path) | 비고 (Note) |
+> | :--- | :--- | :--- |
+> | `best_unet_transfer_model_512px.pth` | `checkpoints/` | **[핵심]** 랜드마크 탐지 V2 |
+> | `best_cvm_v2_768px.pth` | `checkpoints/` | **[핵심]** CVM 단계 분류 V2 |
+> | `cephnet_model.pth` | 프로젝트 루트 (`./`) | 구형 랜드마크 모델 (Legacy) |
+> | `best_mil_model.pth` | `checkpoints/` | MIL 방식 실험 모델 |
 
 ---
 
