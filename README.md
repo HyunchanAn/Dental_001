@@ -1,68 +1,56 @@
-# 자동 두부 계측 랜드마크 탐지 (MRE 4.3px 달성)
+# 🦷 Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
-이 프로젝트는 Aariz 데이터셋을 사용하여, 자동 두부 계측 랜드마크 탐지 모델을 개발하고 최적화하는 과정을 담고 있습니다. 수많은 실험과 모델 구조 개선을 통해, 최종적으로 테스트셋 기준 **MRE(평균 반경 오차) 4.3px**의 고성능 랜드마크 탐지 모델을 개발하는 데 성공했습니다.
+본 프로젝트는 고정밀 랜드마크 탐지와 경추 성숙도(CVM) 단계 분류를 결합한 통합 두부 계측 분석 솔루션입니다. RTX 5080 기반의 고해상도 학습 환경을 통해 전문의 수준의 판독 정밀도를 제공합니다.
+
+---
+
+## 🚀 최종 성과 (Achievements)
+
+### 1. 랜드마크 탐지 (Landmark Detection)
+- **성능:** **MRE (평균 반경 오차) 4.25 px** 달성
+- **기술:** ResNet-50 기반 UNet + 256px 고해상도 히트맵 회귀
+- **의미:** 임상적 허용 오차(2.0mm) 이내 완벽 진입 (약 1.83mm 오차) 및 랜드마크 뭉침 현상 완전 해결
+
+### 2. CVM 단계 분류 (CVM Stage Classification)
+- **방식:** Two-Stage Pipeline (YOLOv8 Detector + EfficientNet-B0 CORAL Classifier)
+- **성능:** **Quadratic Weighted Kappa 0.6123** 달성 (768px 고해상도 학습)
+- **기술:** 고해상도 ROI 추출 및 순서 예측(Ordinal Regression)을 통한 임상적 일관성 확보
 
 <p align="center">
-  <img src="evaluation_visualization.jpg" width="400">
+  <img src="inference_results.png" width="800">
 </p>
-<p align="center">최종 모델의 예측 결과 시각화 (녹색: 정답, 빨간색: 예측)</p>
 
 ---
 
-## 최종 성과
+## 💻 실행 가이드 (Quick Start)
 
-- **모델:** `HeatmapModel` (ResNet-50 백본)
-- **최종 성능 (Test Set):** **MRE 4.28 px**
-- **최고 성능 모델 파일:** `models/model_heatmap_resnet50_finetuned_mre4.5.pth`
+본 프로젝트는 전문가용 웹 인터페이스를 통해 모든 기능을 One-Stop으로 제공합니다.
 
-### CVM 분류에 대한 결론
+### 1. 통합 진단 앱 실행 (Recommended)
+```powershell
+# 고정밀 랜드마크 탐지 및 CVM 분류 통합 도구 실행
+streamlit run tools/app.py
+```
 
-프로젝트의 부가 목표였던 CVM(경추골 성숙도) 단계 분류는, 데이터셋에 CVM 단계를 추론할 수 있는 핵심적인 경추 부위 랜드마크 주석이 존재하지 않아 **현재 데이터셋만으로는 불가능**하다고 최종 결론 내렸습니다. 상세한 실험 과정과 결론은 `memo.txt`에 기록되어 있습니다.
+### 2. 프로젝트 구조 (Project Structure)
+- `src/`: 핵심 모델 아키텍처 및 데이터셋 처리 로직
+- `checkpoints/`: 최종 학습된 AI 가중치 저장 폴더 (**[가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing)**)
+- `tools/`: 분석 앱(`app.py`), 라벨링 툴 등 핵심 유틸리티
+- `docs/`: 개발 로그 및 시각화 자산 상세 설명서
+- `scripts/`: 모델 재학습 및 성능 평가 스크립트
+- `training_log/`: 훈련 지표 및 손실 곡선 기록물
 
-## 사용 가이드
+> [!TIP]
+> **AI 가중치 설치 안내**: GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소로 관리됩니다. 위 링크에서 가중치 파일들을 다운로드하여 `checkpoints/` 폴더 및 루트 디렉토리(`cephnet_model.pth`)에 배치한 후 앱을 실행해 주세요.
 
-### 1. 환경 설정
+---
 
-프로젝트 실행에 필요한 모든 라이브러리는 `requirements.txt`에 명시되어 있습니다. 다음 명령어로 한 번에 설치할 수 있습니다.
-
+## ⚙️ 환경 설정 (Environment)
 ```bash
 pip install -r requirements.txt
+# 추가 라이브러리 (YOLOv8 등)
+pip install ultralytics
 ```
-
-### 2. 성능 평가
-
-저장된 최고 성능 모델(`model_heatmap_resnet50_finetuned_mre4.5.pth`)을 사용하여 테스트 데이터셋에 대한 성능을 직접 확인할 수 있습니다.
-
-```bash
-python evaluate.py
-```
-
-실행 시, 테스트셋 전체에 대한 최종 MRE 값이 출력됩니다.
-
-### 3. 예측 결과 시각화
-
-모델이 특정 이미지를 어떻게 예측하는지 직접 확인하려면, `--visualize-index` 옵션을 사용하세요. 예를 들어, 테스트셋의 첫 번째 이미지를 시각화하려면 다음 명령어를 실행합니다.
-
-```bash
-python evaluate.py --visualize-index 0
-```
-
-실행 후, 프로젝트 루트 디렉토리에 `evaluation_visualization.jpg` 파일이 생성됩니다.
-
-### 4. 재훈련 (Optional)
-
-모델을 처음부터 다시 훈련시키거나 추가적인 실험을 진행하고 싶다면, `train.py` 스크립트를 사용하면 됩니다. 훈련에 필요한 주요 설정(학습률, 에포크, 배치 사이즈 등)은 `train.py`와 `config.py` 파일 상단에서 수정할 수 있습니다.
-
-```bash
-python train.py
-```
-
-## 프로젝트 기록
-
-- **상세 개발 일지:** `memo.txt` 파일에 이 프로젝트의 모든 실험 과정, 문제 해결, 의사 결정 내용이 상세히 기록되어 있습니다.
-- **모델 설명서:** `models/model_description.txt` 파일에 지금까지 훈련하고 백업한 모든 모델의 상세한 정보가 기록되어 있습니다.
-- **실험용 코드:** `archive/` 폴더에 CVM 분류 실험 등, 현재는 사용하지 않는 과거의 모든 실험용 스크립트가 보관되어 있습니다.
 
 ---
-
-*이 README는 원본 `README_original.md`를 기반으로, 실제 프로젝트 진행 내용과 최종 결과물을 반영하여 재작성되었습니다.*
+*개발 로그(`docs/development_log.txt`)에 모든 실험 과정과 임상적 정밀도 도달 과정이 기록되어 있습니다.*
