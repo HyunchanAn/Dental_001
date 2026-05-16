@@ -622,3 +622,23 @@ Original project: https://github.com/manwaarkhd/aariz
      - UI: `tools/app.py`에 최신 Landmark/CVM 엔진 정식 탑재 및 프리미엄 다크 테마 적용.
      - 인계: 임상 전문가가 즉시 활용 가능한 수준의 정밀도와 사용성을 갖춘 상태로 프로젝트 마무리.
      - **[PROJECT COMPLETE - 2026-02-10]**
+
+##### 2026.05.16 (17일차) 집 - 프로젝트 공식 문서화 및 유지보수 정립 #####
+
+  ### 71. 프로젝트 전문성 강화 및 브랜치 통합 (Documentation & Integration)
+     - 배경: 장기간의 개발 과정을 마무리하고, 외부 공유 및 상용화 준비를 위해 문서의 신뢰성과 프로젝트 구조를 정비함.
+     - 주요 조치:
+         1.  **README.md 고도화**: 
+             - 기술 스택 배지(Status, Python, Backend, Hardware, UI)를 최신 스타일로 적용.
+             - RTX 5080(Blackwell) 환경 기반의 상세 하드웨어 스펙 명시.
+             - Landmark MRE(4.25px) 및 CVM Kappa(0.61)의 정밀 평가 지표를 테이블 형식으로 정리하여 가독성 향상.
+             - 임상적 허용 오차(2.0mm) 기준을 명시하여 모델의 실무 적합성 강조.
+         2.  **브랜치 통합 및 정리**:
+             - 마지막 피처 브랜치(`feature/roi-labeling-tool`)를 `main`으로 성공적으로 병합.
+             - 병합 중 발생한 `README.md` 및 `train_classifier_v2.py`의 충돌을 해결하여 최신 RTX 5080 최적화 코드를 보존함.
+             - 불필요한 임시 브랜치(`merge-test`) 및 원격 피처 브랜치를 삭제하여 저장소 위생 관리 수행.
+         3.  **실제 환경 검증**:
+             - `scripts/verify_landmark_v2.py` 등을 생성하여 `checkpoints/` 내의 가중치들이 실제 데이터셋에서 설계된 성능(MRE ~4.25px)을 내는지 재검증 완료.
+         4.  **저장소 최적화**: 
+             - `gemini.md` 등 로컬 전용 설정 파일을 `.gitignore` 처리하여 협업 환경에서의 노이즈 제거.
+     - 의미: 프로젝트가 단순 실험 단계를 넘어, 체계적인 검증 지표와 전문적인 문서 구성을 갖춘 완성형 솔루션으로 발돋움함.
