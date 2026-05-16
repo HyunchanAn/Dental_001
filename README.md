@@ -113,7 +113,7 @@ streamlit run tools/app.py
 
 > [!TIP]
 > **AI 가중치 설치 안내 (Installation Guide)**
-> GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소로 관리됩니다. **[가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing)**에서 파일들을 다운로드하여 아래 경로에 배치해 주세요:
+> GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소로 관리됩니다. [가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing)에서 파일들을 다운로드하여 아래 경로에 배치해 주세요:
 >
 > | 파일명 (Filename) | 배치 경로 (Destination Path) | 비고 (Note) |
 > | :--- | :--- | :--- |
@@ -150,4 +150,4 @@ pip install ultralytics
 ---
 
 *개발 로그(`docs/development_log.txt`)에 모든 실험 과정과 임상적 정밀도 도달 과정이 기록되어 있습니다.*
-*이 프로젝트는 Apple Silicon (M2 Pro) 및 NVIDIA RTX 5080 환경에서 최적화되었습니다.*
+
