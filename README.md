@@ -1,5 +1,14 @@
 # 🦷 Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/>
+  <img src="https://img.shields.io/badge/NVIDIA-RTX%205080-76B900?style=flat-square&logo=nvidia&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white"/>
+  <img src="https://img.shields.io/badge/YOLOv8-00FFFF?style=flat-square&logo=ultralytics&logoColor=black"/>
+  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white"/>
+</p>
+
 본 프로젝트는 고정밀 랜드마크 탐지와 경추 성숙도(CVM) 단계 분류를 결합한 통합 두부 계측 분석 솔루션입니다. RTX 5080 기반의 고해상도 학습 환경을 통해 전문의 수준의 판독 정밀도를 제공합니다.
 
 ---
@@ -19,6 +28,50 @@
 <p align="center">
   <img src="inference_results.png" width="800">
 </p>
+
+---
+
+## 📊 상세 성능 평가 및 환경 (Evaluation & Environment)
+
+본 프로젝트는 최신 하드웨어 환경에서 정밀한 지표를 바탕으로 검증되었습니다.
+
+### 1. 하드웨어 및 소프트웨어 스펙
+- **CPU:** AMD Ryzen 9 9900X (12-Core, 24-Threads)
+- **GPU:** **NVIDIA GeForce RTX 5080 (16GB GDDR7)** - Blackwell Architecture
+- **RAM:** 64GB DDR5-5600
+- **OS:** Windows 11 Pro
+- **Stack:** PyTorch 2.x, CUDA 12.x, YOLOv8 (Ultralytics), Albumentations, Streamlit
+
+### 2. 평가 지표 (Metrics)
+- **Landmark MRE:** Mean Radial Error. 예측된 랜드마크와 정답 좌표 간의 평균 유클리드 거리(픽셀 단위).
+- **QW Kappa:** Quadratic Weighted Kappa. CVM 단계와 같이 순서가 있는 클래스 분류에서 인접 단계 오분류에 가중치를 두어 일치도를 측정하는 지표 (0.6 이상: 강력한 일치).
+
+### 3. 최종 평가 결과 (Final Results)
+| Task | Dataset | Metric | Result | Target (Clinical) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Landmark Detection** | Aariz Test Set | **MRE (px)** | **4.2469 px** | < 4.6 px (2.0mm) |
+| **CVM Classification** | Aariz Valid Set | **QW Kappa** | **0.6123** | > 0.60 (Strong) |
+| **CVM Classification** | Aariz Valid Set | **Accuracy** | **45.05%** | - |
+
+---
+
+## 🧪 테스트 및 재현 가이드 (Reproducibility)
+
+학습된 모델의 성능을 직접 검증하려면 아래 스크립트를 실행하십시오.
+
+### 1. 랜드마크 탐지 엔진 평가
+```powershell
+# 테스트셋에 대한 MRE 측정 및 시각화 결과 생성
+python scripts/evaluate.py
+```
+
+### 2. CVM 분류 엔진 평가
+```powershell
+# 고해상도(768px) 검증 루프 및 지표 확인
+python scripts/train_classifier_v2.py
+```
+
+---
 
 ### 3. 실시간 분석 예시 (Live Analysis Example)
 
@@ -80,4 +133,21 @@ pip install ultralytics
 ```
 
 ---
+
+## 🛠️ 향후 고도화 계획 (Future Roadmap)
+
+본 프로젝트의 성능을 임상 전문가 수준으로 더욱 끌어올리기 위해 다음과 같은 업데이트를 계획하고 있습니다.
+
+### 1. CVM 분류 정밀도 극대화
+- **목표:** 현재 Kappa 0.61에서 **0.7 이상**으로 상향
+- **방법:** Ordinal Smoothing 도입을 통한 인접 단계 오분류 패널티 최적화 및 Soft Labeling 기반의 확신도 학습 적용
+
+### 2. 예외 케이스(Edge Case) 대응력 강화
+- **내용:** 저품질 영상이나 해부학적 변이가 심한 케이스에서 YOLO 검출 실패 시, 랜드마크 기반의 통계적 ROI 추정 알고리즘을 Fallback 로직으로 구현
+
+### 3. 실시간 데이터 선순환 (Feedback Loop) 구축
+- **내용:** `labeling_tool.py`와 진단 앱을 통합하여, 사용자가 교정한 데이터를 즉시 학습 데이터셋으로 변환하고 모델을 미세 조정(Fine-tuning)하는 Active Learning 파이프라인 완성
+
+---
+
 *개발 로그(`docs/development_log.txt`)에 모든 실험 과정과 임상적 정밀도 도달 과정이 기록되어 있습니다.*
