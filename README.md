@@ -1,12 +1,11 @@
 # 🦷 Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/>
-  <img src="https://img.shields.io/badge/NVIDIA-RTX%205080-76B900?style=flat-square&logo=nvidia&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white"/>
-  <img src="https://img.shields.io/badge/YOLOv8-00FFFF?style=flat-square&logo=ultralytics&logoColor=black"/>
-  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Status-v2.0_Stable-green?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Python-3.14-blue?style=flat-square&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red?style=flat-square&logo=pytorch&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Hardware-RTX_5080-orange?style=flat-square&logo=nvidia&logoColor=white"/>
+  <img src="https://img.shields.io/badge/UI-Streamlit-blue?style=flat-square&logo=streamlit&logoColor=white"/>
 </p>
 
 본 프로젝트는 고정밀 랜드마크 탐지와 경추 성숙도(CVM) 단계 분류를 결합한 통합 두부 계측 분석 솔루션입니다. RTX 5080 기반의 고해상도 학습 환경을 통해 전문의 수준의 판독 정밀도를 제공합니다.
@@ -151,3 +150,4 @@ pip install ultralytics
 ---
 
 *개발 로그(`docs/development_log.txt`)에 모든 실험 과정과 임상적 정밀도 도달 과정이 기록되어 있습니다.*
+*이 프로젝트는 Apple Silicon (M2 Pro) 및 NVIDIA RTX 5080 환경에서 최적화되었습니다.*
