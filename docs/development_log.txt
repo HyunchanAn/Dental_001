@@ -569,6 +569,7 @@ Original project: https://github.com/manwaarkhd/aariz
         - tools/: 인퍼런스 및 라벨링 전용 실무 도구 배치.
         - docs/: 개발 일지 및 기획서 전용 문서함 마련.
     - 결과: 루트 경로를 쾌적하게 유지하면서 기능별 코드 응집도(Cohesion) 향상.
+<<<<<<< HEAD
 
 ##### 2026.02.09 (15일차) 집 - RTX 5080 환경 최적화 및 V2 학습 재개 #####
 
