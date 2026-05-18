@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red?style=flat-square&logo=pytorch&logoColor=white"/>
   <img src="https://img.shields.io/badge/Hardware-RTX_5080-orange?style=flat-square&logo=nvidia&logoColor=white"/>
   <img src="https://img.shields.io/badge/UI-Streamlit-blue?style=flat-square&logo=streamlit&logoColor=white"/>
+  <a href="https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml"><img src="https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg" alt="Python CI" valign="middle"/></a>
 </p>
 
 본 프로젝트는 고정밀 랜드마크 탐지와 경추 성숙도(CVM) 단계 분류를 결합한 통합 두부 계측 분석 솔루션입니다. RTX 5080 기반의 고해상도 학습 환경을 통해 전문의 수준의 판독 정밀도를 제공합니다.
@@ -68,6 +69,19 @@ python scripts/evaluate.py
 ```powershell
 # 고해상도(768px) 검증 루프 및 지표 확인
 python scripts/train_classifier_v2.py
+```
+
+### 3. 지속적 통합(CI/CD) 및 단위 테스트 실행
+GitHub Actions를 활용한 자동화된 CI 파이프라인이 구축되어 있습니다. 코드가 push되거나 Pull Request가 생성될 때마다 Ruff linter 및 Pytest가 자동으로 실행됩니다. 로컬 환경에서 수동으로 테스트하려면 아래 명령어를 실행하십시오:
+```powershell
+# 1. 패키지 의존성 및 pytest, ruff 설치
+pip install -r requirements.txt
+
+# 2. Ruff 스타일(Linting) 검사 실행
+ruff check .
+
+# 3. Pytest 단위 테스트(Lightweight Unit Tests) 실행
+python -m pytest tests
 ```
 
 ---

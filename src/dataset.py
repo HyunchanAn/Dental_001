@@ -10,9 +10,9 @@ from albumentations.pytorch import ToTensorV2
 from .config import NUM_LANDMARKS # IMAGE_SIZE is now passed as an argument
 
 class HeatmapDataset(Dataset):
-    
+
     def __init__(self, dataset_folder_path: str, mode: str, image_size: tuple, output_size: tuple = (64, 64), sigma: int = 2):
-        
+
         if mode.upper() not in ["TRAIN", "VALID", "TEST"]:
             raise ValueError("mode could only be TRAIN, VALID or TEST")
         self.mode = mode.lower()
@@ -42,13 +42,13 @@ class HeatmapDataset(Dataset):
         self.labels_root_path = os.path.join(dataset_folder_path, self.mode, "Annotations")
         self.senior_annotations_root = os.path.join(self.labels_root_path, "Cephalometric Landmarks", "Senior Orthodontists")
         self.junior_annotations_root = os.path.join(self.labels_root_path, "Cephalometric Landmarks", "Junior Orthodontists")
-        
+
         self.images_list = os.listdir(self.images_root_path)
-        
+
     def __getitem__(self, index):
         image_file_name = self.images_list[index]
         label_file_name = image_file_name.split(".")[0] + ".json"
-        
+
         image = self._get_image(image_file_name)
         landmarks = self._get_landmarks(label_file_name)
 
@@ -59,7 +59,7 @@ class HeatmapDataset(Dataset):
 
         # Generate heatmaps
         heatmaps = self._generate_heatmaps(landmarks)
-        
+
         return image, torch.tensor(heatmaps, dtype=torch.float32), torch.tensor(landmarks, dtype=torch.float32)
 
     def _generate_heatmaps(self, landmarks):
@@ -74,13 +74,13 @@ class HeatmapDataset(Dataset):
 
             if 0 <= hm_x < self.output_size[1] and 0 <= hm_y < self.output_size[0]:
                 heatmaps[i] = self._create_gaussian_heatmap(hm_x, hm_y)
-        
+
         return heatmaps
 
     def _create_gaussian_heatmap(self, center_x, center_y):
         heatmap = np.zeros((self.output_size[0], self.output_size[1]), dtype=np.float32)
         tmp_size = self.sigma * 3
-        
+
         # Generate gaussian region
         size = 2 * tmp_size + 1
         x = np.arange(0, size, 1, np.float32)
@@ -108,26 +108,26 @@ class HeatmapDataset(Dataset):
         image = cv2.imread(file_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         return np.array(image, dtype=np.uint8)
-    
+
     def _get_landmarks(self, file_name):
         file_path = os.path.join(self.senior_annotations_root, file_name)
         with open(file_path, mode="r") as file:
             senior_annotations = json.load(file)
-        
+
         senior_annotations = [[landmark["value"]["x"], landmark["value"]["y"]] for landmark in senior_annotations["landmarks"]]
-        
+
         file_path = os.path.join(self.junior_annotations_root, file_name)
         with open(file_path, mode="r") as file:
             junior_annotations = json.load(file)
 
         junior_annotations = [[landmark["value"]["x"], landmark["value"]["y"]] for landmark in junior_annotations["landmarks"]]
-        
+
         landmarks = np.zeros(shape=(NUM_LANDMARKS, 2), dtype=np.float32)
         for i in range(NUM_LANDMARKS):
             landmarks[i, 0] = np.ceil((0.5) * (junior_annotations[i][0] + senior_annotations[i][0]))
             landmarks[i, 1] = np.ceil((0.5) * (junior_annotations[i][1] + senior_annotations[i][1]))
-        
+
         return landmarks
-    
+
     def __len__(self):
         return len(self.images_list)
