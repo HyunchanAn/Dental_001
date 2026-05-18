@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ceph-cvm-suite"
+version = "1.0.0"
+description = "Automated Precise Landmark Localization & CVM Maturation Analysis Engine"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "HyunchanAn" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "numpy",
+    "opencv-python",
+    "torch",
+    "torchvision",
+    "scikit-learn",
+    "pandas",
+    "tqdm",
+    "albumentations",
+    "ultralytics",
+    "streamlit",
+    "pillow",
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1",
+    "build",
+    "httpx",
+    "pytest-cov",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --tb=short"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+line-length = 120
+exclude = [
+    ".git",
+    "__pycache__",
+    "venv",
+    ".venv",
+    "build",
+    "dist",
+    "tools/legacy",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []

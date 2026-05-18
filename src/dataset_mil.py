@@ -1,19 +1,17 @@
 import torch
 from torch.utils.data import Dataset
-import pandas as pd
 import os
 from PIL import Image
 import random
 import json
 import cv2
-import numpy as np
 from torchvision import transforms
 
 class MILDataset(Dataset):
     def __init__(self, mode, dataset_path="Aariz", transform=None, num_patches=16, patch_size=224):
         if mode.upper() not in ["TRAIN", "VALID", "TEST"]:
             raise ValueError("mode could only be TRAIN, VALID or TEST")
-        
+
         self.mode = mode.lower()
         self.dataset_path = dataset_path
         self.transform = transform
@@ -22,9 +20,9 @@ class MILDataset(Dataset):
 
         self.images_root = os.path.join(self.dataset_path, self.mode, "Cephalograms")
         self.labels_root = os.path.join(self.dataset_path, self.mode, "Annotations", "CVM Stages")
-        
+
         self.image_files = sorted(os.listdir(self.images_root))
-        
+
         # 훈련 시 추가적인 증강 정의 (torchvision 기준)
         if self.mode == "train":
             self.train_aug = transforms.Compose([
@@ -42,7 +40,7 @@ class MILDataset(Dataset):
         # 1. Get image and label paths
         image_filename = self.image_files[idx]
         label_filename = os.path.splitext(image_filename)[0] + ".json"
-        
+
         image_path = os.path.join(self.images_root, image_filename)
         label_path = os.path.join(self.labels_root, label_filename)
 
@@ -50,7 +48,7 @@ class MILDataset(Dataset):
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         original_pil_image = Image.fromarray(image)
-        
+
         # 3. Load CVM Stage
         with open(label_path, 'r') as f:
             label_data = json.load(f)
@@ -61,7 +59,7 @@ class MILDataset(Dataset):
 
         # 4. Define patch sampling area (lower 60% of the image)
         sampling_y_min = int(h * 0.4)
-        
+
         patches = []
         for _ in range(self.num_patches):
             # 5. Sample a patch
@@ -69,20 +67,20 @@ class MILDataset(Dataset):
             # 여기서는 우선 전체 가로 영역을 보되, 세로 영역을 조금 더 넓힘(하위 60%)
             rand_x = random.randint(0, w - self.patch_size)
             rand_y = random.randint(sampling_y_min, h - self.patch_size)
-            
+
             patch = original_pil_image.crop((rand_x, rand_y, rand_x + self.patch_size, rand_y + self.patch_size))
-            
+
             # Apply training augmentation to the PIL patch if in train mode
             if self.train_aug:
                 patch = self.train_aug(patch)
-                
+
             if self.transform:
                 patch = self.transform(patch)
-            
+
             patches.append(patch)
-            
+
         patches_tensor = torch.stack(patches)
-        
+
         return patches_tensor, torch.tensor(cvm_stage, dtype=torch.long)
 
 if __name__ == '__main__':

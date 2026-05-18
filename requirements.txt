@@ -9,3 +9,9 @@ albumentations
 ultralytics
 streamlit
 pillow
+pytest
+ruff
+fastapi
+uvicorn
+python-multipart
+httpx

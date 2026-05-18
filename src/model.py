@@ -7,7 +7,7 @@ from .config import NUM_LANDMARKS
 class UNetHeatmapModel(nn.Module):
     def __init__(self, num_landmarks=NUM_LANDMARKS, pretrained=True):
         super(UNetHeatmapModel, self).__init__()
-        
+
         resnet = models.resnet50(weights=models.ResNet50_Weights.DEFAULT if pretrained else None)
 
         # --- Encoder (ResNet-50 Backbone) ---
@@ -37,7 +37,7 @@ class UNetHeatmapModel(nn.Module):
         )
 
     def forward(self, x):
-        # --- Encoder --- 
+        # --- Encoder ---
         x0 = self.enc0(x)      # 1/2
         x0_p = self.maxpool(x0) # 1/4
         x1 = self.layer1(x0_p) # 1/4
@@ -52,7 +52,7 @@ class UNetHeatmapModel(nn.Module):
         u1 = self.up_conv1(torch.cat([u2, x1], 1))       # 1/2 (256x256)
 
         heatmaps = self.final_layer(u1)
-        
+
         return heatmaps
 
     def freeze_backbone(self):

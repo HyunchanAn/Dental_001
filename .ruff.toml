@@ -1,0 +1,32 @@
+# Ruff configuration file
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".git",
+    ".git-rewrite",
+    ".ipynb_checkpoints",
+    ".venv",
+    "venv",
+    "yolo_runs",
+    "training_log",
+    "Aariz",
+    "Aariz_CVM_Clean",
+    "Aariz_ROI",
+    "archive",
+    "tools",
+    "scripts",
+    "analysis",
+    "attention_analysis",
+]
+
+# Set line length to a reasonable default
+line-length = 120
+
+[lint]
+# Enable Pyflakes (F) and pycodestyle (E, W) codes by default.
+select = ["E", "F", "W"]
+# Ignore rules that are common in research code but not critical
+ignore = [
+    "E501", # Line too long
+    "F841", # Local variable is assigned to but never used
+]

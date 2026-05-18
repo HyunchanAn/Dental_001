@@ -35,20 +35,20 @@ class AttentionMIL(nn.Module):
     def forward(self, x, return_attention=False):
         # x shape: (batch_size, num_patches, C, H, W)
         batch_size, num_patches, C, H, W = x.shape
-        
+
         # 모든 패치를 하나의 배치로 취급하여 특징 추출
         x = x.view(batch_size * num_patches, C, H, W)
-        
+
         # (batch_size * num_patches, 512, 4, 4) for 128x128 input
         H = self.features(x)
-        
+
         # Apply adaptive average pooling to get a fixed-size output
         # (batch_size * num_patches, 512, 1, 1)
         H = F.adaptive_avg_pool2d(H, (1, 1))
 
         # (batch_size * num_patches, feature_dim)
         H = H.view(batch_size * num_patches, -1)
-        
+
         # (batch_size, num_patches, feature_dim)
         H = H.view(batch_size, num_patches, -1)
 
@@ -57,14 +57,14 @@ class AttentionMIL(nn.Module):
         A_unnormalized = self.attention(H)
         # A: (batch_size, num_patches, 1)
         A = F.softmax(A_unnormalized, dim=1)
-        
+
         # 가중치와 특징을 곱하여 최종 특징 벡터 계산
         # M: (batch_size, feature_dim)
         M = torch.sum(A * H, dim=1)
 
         # 최종 분류
         logits = self.classifier(M)
-        
+
         if return_attention:
             return logits, A
         return logits
