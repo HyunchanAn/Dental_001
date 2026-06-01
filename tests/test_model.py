@@ -1,5 +1,5 @@
 import torch
-from src.model import UNetHeatmapModel, HeatmapModel
+from src.landmark.model import UNetHeatmapModel, HeatmapModel
 from src.config import NUM_LANDMARKS
 
 def test_unet_heatmap_model_shape():

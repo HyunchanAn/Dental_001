@@ -12,8 +12,8 @@ from collections import OrderedDict
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from src.dataset import HeatmapDataset
-from src.model import UNetHeatmapModel # Use the new UNet model
+from src.landmark.dataset import HeatmapDataset
+from src.landmark.model import UNetHeatmapModel # Use the new UNet model
 from src.config import (
     DATASET_PATH, 
     IMAGE_SIZE, 

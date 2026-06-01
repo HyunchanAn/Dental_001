@@ -13,7 +13,7 @@ from pathlib import Path
 # 프로젝트 루트 경로 추가
 sys.path.append(str(Path(__file__).parent.parent))
 from src import config
-from src.model import UNetHeatmapModel
+from src.landmark.model import UNetHeatmapModel
 
 # --- Configuration ---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
