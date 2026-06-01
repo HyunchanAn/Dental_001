@@ -2,7 +2,7 @@ import json
 import cv2
 import numpy as np
 import torch
-from src.dataset import HeatmapDataset
+from src.landmark.dataset import HeatmapDataset
 from src.config import NUM_LANDMARKS
 
 def test_heatmap_dataset_loading(tmp_path):

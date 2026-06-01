@@ -10,7 +10,7 @@ from torchvision import transforms
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from src.model import UNetHeatmapModel
+from src.landmark.model import UNetHeatmapModel
 from src.config import NUM_LANDMARKS
 
 def get_coords_from_heatmaps(heatmaps, image_size, heatmap_size):

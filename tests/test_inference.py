@@ -6,7 +6,7 @@ from pathlib import Path
 # Add project root path to sys.path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.model import UNetHeatmapModel
+from src.landmark.model import UNetHeatmapModel
 from tools.api import CoralEfficientNet, proba_to_label, get_coords_from_heatmaps
 from src.config import NUM_LANDMARKS
 

@@ -726,3 +726,9 @@ Original project: https://github.com/manwaarkhd/aariz
 
 2026-06-02 00:46:51
 - README.md 아키텍처 다이어그램 Mermaid 문법 오류(괄호 등 특수문자 따옴표 처리) 수정
+
+2026-06-02T05:54:00 [Refactoring] 구조적 가독성 및 가중치 관리 일관성을 위한 디렉토리 계층 리팩토링 진행
+- checkpoints/legacy 에 기존 cephnet_model.pth 이동
+- research 폴더 생성 후 analysis, archive, attention_analysis, scratch 등 임상 실험 폴더 격리 이동
+- src 내부의 코드를 landmark, cvm 하위 폴더로 모듈 분리 후 관련 import 구문 일괄 업데이트 완료.
+- 이슈 #4 해결 완료 및 반영.
