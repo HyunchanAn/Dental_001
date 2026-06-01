@@ -200,3 +200,10 @@ pip install ultralytics
 
 *개발 로그(`docs/development_log.txt`)에 모든 실험 과정과 임상적 정밀도 도달 과정이 기록되어 있습니다.*
 
+---
+
+## References
+
+- **Lee, J. Y.** (2002). Equipotential line method for magnetic resonance electrical impedance tomography. *Inverse Problems*, 18(4), 310. [DOI: 10.1088/0266-5611/18/4/310](https://doi.org/10.1088/0266-5611/18/4/310)
+- **Lee, J. Y.** (2004). A reconstruction formula and uniqueness of conductivity in MREIT using two internal current distributions. *Inverse Problems*, 20(3), 012. [DOI: 10.1088/0266-5611/20/3/012](https://doi.org/10.1088/0266-5611/20/3/012)
+
