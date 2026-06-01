@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
-from .config import NUM_LANDMARKS
+from src.config import NUM_LANDMARKS
 
 class UNetHeatmapModel(nn.Module):
     def __init__(self, num_landmarks=NUM_LANDMARKS, pretrained=True):
