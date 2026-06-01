@@ -36,14 +36,14 @@
 ### Architecture Diagram
 ```mermaid
 graph TD
-    A[Cephalometric X-Ray Image] --> B[Landmark Detection<br/>ResNet-50 UNet]
-    B --> C[19 Anatomical Landmarks]
-    A --> D[ROI Extraction<br/>YOLOv8 Detector]
-    D --> E[C2-C4 Cervical Region]
-    E --> F[CVM Stage Classification<br/>EfficientNet-B0 CORAL]
-    C --> G[Integrated Analysis Result]
+    A["Cephalometric X-Ray Image"] --> B["Landmark Detection<br/>ResNet-50 UNet"]
+    B --> C["19 Anatomical Landmarks"]
+    A --> D["ROI Extraction<br/>YOLOv8 Detector"]
+    D --> E["C2-C4 Cervical Region"]
+    E --> F["CVM Stage Classification<br/>EfficientNet-B0 CORAL"]
+    C --> G["Integrated Analysis Result"]
     F --> G
-    G --> H[Streamlit UI<br/>Professional Overlay & Report]
+    G --> H["Streamlit UI<br/>Professional Overlay & Report"]
 ```
 
 ### Sequence Diagram
