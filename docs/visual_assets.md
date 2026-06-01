@@ -14,13 +14,13 @@
 - **의미**: 입력 이미지, 좌표 기반 랜드마크, 그리고 생성된 가우시안 히트맵이 공간적으로 완벽하게 일치하는지 확인하기 위한 디버깅용 이미지입니다.
 - **분석**: 데이터 전처리 파이프라인의 무결성을 보장하는 기술적 증거입니다.
 
-### [`inference_results.png`](file:///e:/Github/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/inference_results.png)
+### [`docs/assets/inference_results.png`](file:///e:/Github/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/docs/assets/inference_results.png)
 - **생성 시점**: 프로젝트 초기 랜드마크-CVM 통합 모델 테스트 단계
 - **의미**: 랜드마크 예측 좌표와 CVM 단계 분류 결과가 한 장의 이미지에 오버레이되어 나타나는 최종 분석 리포트 양식의 시초입니다.
 
 ## 2. CVM 단계 분류 관련 (CVM Stage Classification)
 
-### [`cvm_premium_visualization.png`](file:///e:/Github/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/cvm_premium_visualization.png)
+### [`docs/assets/cvm_premium_visualization.png`](file:///e:/Github/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/docs/assets/cvm_premium_visualization.png)
 - **생성 시점**: CVM V2(768px) 고해상도 학습 및 Streamlit UI 디자인 고도화 단계
 - **의미**: 경추(C2, C3, C4) 영역을 정밀 탐지(Detection)하고, 각 노드의 특징을 분석하여 최종 성숙 단계를 도출하는 과정을 프리미엄 UI 스타일로 구성한 예시입니다.
 - **분석**: 단순 분류를 넘어 의료 전문가에게 '근거 있는 분석'을 시각적으로 제공하는 인터페이스의 지향점을 보여줍니다.

@@ -48,5 +48,5 @@
 - `tests/test_cost_sensitive_loss.py`: CS3 라벨을 CS4로 예측했을 때의 손실값이 CS1을 CS2로 예측했을 때보다 2배 이상 높게 산출되는지 단위 테스트 수행.
 
 ### Manual Verification
-- `inference_results.png` 시각화를 통해, 이전 버전에서 오분류되었던 모호한 CS3/CS4 데이터가 올바르게 분류되거나 'Uncertain'으로 보류되는지 육안 확인.
+- `docs/assets/inference_results.png` 시각화를 통해, 이전 버전에서 오분류되었던 모호한 CS3/CS4 데이터가 올바르게 분류되거나 'Uncertain'으로 보류되는지 육안 확인.
 - YOLO 실패 데이터에 대해 그려진 Fallback ROI BBox가 실제 C2-C4 위치를 어느 정도 커버하는지 시각적 확인.

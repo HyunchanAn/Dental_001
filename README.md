@@ -26,7 +26,7 @@
 - **기술:** 고해상도 ROI 추출 및 순서 예측(Ordinal Regression)을 통한 임상적 일관성 확보
 
 <p align="center">
-  <img src="inference_results.png" width="800">
+  <img src="docs/assets/inference_results.png" width="800">
 </p>
 
 ---
@@ -129,8 +129,8 @@ python -m pytest tests
 <td align="center"><b>분석 결과 (Analysis Result)</b></td>
 </tr>
 <tr>
-<td><img src="ceph_test.png" width="400"></td>
-<td><img src="ceph_anal.png" width="400"></td>
+<td><img src="docs/assets/ceph_test.png" width="400"></td>
+<td><img src="docs/assets/ceph_anal.png" width="400"></td>
 </tr>
 </table>
 

@@ -199,7 +199,7 @@ class CVMInference:
             plt.axis('off')
             
         plt.tight_layout()
-        output_path = 'inference_results.png'
+        output_path = 'docs/assets/inference_results.png'
         plt.savefig(output_path)
         print(f"Results saved to {output_path}")
         return output_path
