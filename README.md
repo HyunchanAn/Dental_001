@@ -1,4 +1,4 @@
-# 🦷 Automatic Cephalometric Landmark Detection & CVM Stage Classification
+# Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-v2.0_Stable-green?style=flat-square"/>
@@ -13,7 +13,7 @@
 
 ---
 
-## 🚀 최종 성과 (Achievements)
+## 최종 성과 (Achievements)
 
 ### 1. 랜드마크 탐지 (Landmark Detection)
 - **성능:** **MRE (평균 반경 오차) 4.25 px** 달성
@@ -31,7 +31,42 @@
 
 ---
 
-## 📊 상세 성능 평가 및 환경 (Evaluation & Environment)
+## Technical Architecture & Workflow
+
+### Architecture Diagram
+```mermaid
+graph TD
+    A[Cephalometric X-Ray Image] --> B[Landmark Detection<br/>ResNet-50 UNet]
+    B --> C[19 Anatomical Landmarks]
+    A --> D[ROI Extraction<br/>YOLOv8 Detector]
+    D --> E[C2-C4 Cervical Region]
+    E --> F[CVM Stage Classification<br/>EfficientNet-B0 CORAL]
+    C --> G[Integrated Analysis Result]
+    F --> G
+    G --> H[Streamlit UI<br/>Professional Overlay & Report]
+```
+
+### Sequence Diagram
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI as Streamlit UI
+    participant LE as Landmark Engine
+    participant CE as CVM Engine
+    
+    User->>UI: Upload X-Ray Image
+    UI->>LE: Request Landmark Detection
+    LE-->>UI: Return 19 Coordinates
+    UI->>CE: Request CVM Stage
+    CE->>CE: YOLOv8 ROI Crop (C2-C4)
+    CE->>CE: EfficientNet Ordinal Regression
+    CE-->>UI: Return CVM Stage
+    UI-->>User: Display Overlay & Analysis Results
+```
+
+---
+
+## 상세 성능 평가 및 환경 (Evaluation & Environment)
 
 본 프로젝트는 최신 하드웨어 환경에서 정밀한 지표를 바탕으로 검증되었습니다.
 
@@ -55,7 +90,7 @@
 
 ---
 
-## 🧪 테스트 및 재현 가이드 (Reproducibility)
+## 테스트 및 재현 가이드 (Reproducibility)
 
 학습된 모델의 성능을 직접 검증하려면 아래 스크립트를 실행하십시오.
 
@@ -107,7 +142,7 @@ python -m pytest tests
 
 ---
 
-## 💻 실행 가이드 (Quick Start)
+## 실행 가이드 (Quick Start)
 
 본 프로젝트는 전문가용 웹 인터페이스를 통해 모든 기능을 One-Stop으로 제공합니다.
 
@@ -138,7 +173,7 @@ streamlit run tools/app.py
 
 ---
 
-## ⚙️ 환경 설정 (Environment)
+## 환경 설정 (Environment)
 ```bash
 pip install -r requirements.txt
 # 추가 라이브러리 (YOLOv8 등)
@@ -147,7 +182,7 @@ pip install ultralytics
 
 ---
 
-## 🛠️ 향후 고도화 계획 (Future Roadmap)
+## 향후 고도화 계획 (Future Roadmap)
 
 본 프로젝트의 성능을 임상 전문가 수준으로 더욱 끌어올리기 위해 다음과 같은 업데이트를 계획하고 있습니다.
 
