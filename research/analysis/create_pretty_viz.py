@@ -134,7 +134,7 @@ def create_pretty_viz():
     draw.rectangle([x1, y1-70, x1+250, y1], fill=(0, 255, 127, 200))
     draw.text((x1+10, y1-65), f"CVM-S{pred['stage']}", fill=(0, 0, 0), font=font_small)
 
-    save_path = "cvm_premium_visualization.png"
+    save_path = "docs/assets/cvm_premium_visualization.png"
     img.save(save_path)
     print(f"Visualization saved to {save_path}")
     os.system(f"open {save_path}")
