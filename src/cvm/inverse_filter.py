@@ -5,13 +5,13 @@ def apply_equipotential_filter(image, iter_num=5, kappa=50, gamma=0.1):
     """
     Inverse Problem (Equipotential line method) proxy using Anisotropic Diffusion.
     Preserves edges (cervical bone contours) while smoothing internal noise.
-    
+
     Args:
         image: numpy array (RGB or BGR)
         iter_num: Number of iterations
         kappa: Conduction coefficient (controls edge sensitivity)
         gamma: Integration constant
-    
+
     Returns:
         Filtered image (numpy array)
     """
@@ -44,7 +44,7 @@ def apply_equipotential_filter(image, iter_num=5, kappa=50, gamma=0.1):
         img = img + gamma * (cN * deltaN + cS * deltaS + cE * deltaE + cW * deltaW)
 
     img = np.clip(img, 0, 255).astype(np.uint8)
-    
+
     if len(image.shape) == 3:
         # Re-apply to color channels if needed, or just return as merged pseudo-color
         return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
