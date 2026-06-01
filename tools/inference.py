@@ -15,6 +15,8 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from src import config
+from src.cvm.inverse_filter import apply_equipotential_filter
+from src.landmark.model import UNetHeatmapModel
 
 # --- Configuration ---
 DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
@@ -60,6 +62,13 @@ class CVMInference:
         self.classifier = CoralEfficientNet(num_classes=NUM_CLASSES).to(DEVICE)
         self.classifier.load_state_dict(torch.load(CLASSIFIER_PATH, map_location=DEVICE))
         self.classifier.eval()
+        
+        # Load landmark model for fallback
+        self.landmark_model = UNetHeatmapModel(num_landmarks=config.NUM_LANDMARKS).to(DEVICE)
+        landmark_weights = 'checkpoints/best_model.pth'
+        if os.path.exists(landmark_weights):
+            self.landmark_model.load_state_dict(torch.load(landmark_weights, map_location=DEVICE))
+        self.landmark_model.eval()
         print("Models loaded successfully.")
 
     def get_gt_label(self, img_path):
@@ -81,8 +90,11 @@ class CVMInference:
         if orig_img is None: return None
         rgb_img = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
         
+        # Apply equipotential filter (inverse problem approach)
+        filtered_img = apply_equipotential_filter(rgb_img)
+        
         # 2. Detect ROI (YOLO)
-        results = self.detector.predict(img_path, conf=0.5, verbose=False)
+        results = self.detector.predict(filtered_img, conf=0.5, verbose=False)
         
         prediction = {
             'img_path': img_path,
@@ -95,26 +107,61 @@ class CVMInference:
         if len(results[0].boxes) > 0:
             box = results[0].boxes[0]
             x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
-            
-            # Expand for context
-            h, w = results[0].orig_shape
-            margin = 0.1
-            bw, bh = x2 - x1, y2 - y1
-            x1 = max(0, x1 - bw * margin)
-            y1 = max(0, y1 - bh * margin)
-            x2 = min(w, x2 + bw * margin)
-            y2 = min(h, y2 + bh * margin)
-            
-            prediction['roi_detected'] = True
-            prediction['bbox'] = (int(x1), int(y1), int(x2), int(y2))
-            
-            # 3. Classify (EfficientNet)
-            crop = rgb_img[int(y1):int(y2), int(x1):int(x2)]
-            pil_crop = Image.fromarray(crop)
-            tensor_crop = transform(pil_crop).unsqueeze(0).to(DEVICE)
-            
+        else:
+            # Fallback ROI based on Landmarks topology
+            input_tensor = cv2.resize(filtered_img, (512, 512))
+            input_tensor = transforms.ToTensor()(input_tensor).unsqueeze(0).to(DEVICE)
             with torch.no_grad():
-                logits = self.classifier(tensor_crop)
+                heatmaps = self.landmark_model(input_tensor)
+            
+            # Get average location of all landmarks to find the face center
+            heatmaps_np = heatmaps.squeeze(0).cpu().numpy()
+            y_coords, x_coords = [], []
+            for hm in heatmaps_np:
+                idx = np.argmax(hm)
+                y_coords.append(idx // 512)
+                x_coords.append(idx % 512)
+            
+            face_center_x = np.mean(x_coords) / 512.0
+            face_center_y = np.mean(y_coords) / 512.0
+            
+            h, w = rgb_img.shape[:2]
+            # Inverse map: cervical vertebrae are typically right and down from face center
+            x1 = int(w * (face_center_x + 0.1))
+            y1 = int(h * (face_center_y + 0.1))
+            x2 = int(w * (face_center_x + 0.4))
+            y2 = int(h * (face_center_y + 0.5))
+            
+            # Ensure within bounds
+            x1, y1 = max(0, x1), max(0, y1)
+            x2, y2 = min(w, x2), min(h, y2)
+            
+        # Common expansion for context
+        h, w = rgb_img.shape[:2]
+        margin = 0.1
+        bw, bh = x2 - x1, y2 - y1
+        x1 = max(0, x1 - bw * margin)
+        y1 = max(0, y1 - bh * margin)
+        x2 = min(w, x2 + bw * margin)
+        y2 = min(h, y2 + bh * margin)
+        
+        prediction['roi_detected'] = True
+        prediction['bbox'] = (int(x1), int(y1), int(x2), int(y2))
+        
+        # 3. Classify (EfficientNet)
+        crop = rgb_img[int(y1):int(y2), int(x1):int(x2)]
+        pil_crop = Image.fromarray(crop)
+        tensor_crop = transform(pil_crop).unsqueeze(0).to(DEVICE)
+        
+        with torch.no_grad():
+            logits = self.classifier(tensor_crop)
+            
+            # Uncertainty Filter
+            probas = torch.sigmoid(logits)
+            variance = torch.var(probas, dim=1).item()
+            if variance < 0.05: # threshold for uncertainty
+                prediction['stage_pred'] = "Uncertain"
+            else:
                 stage_idx = proba_to_label(logits)
                 prediction['stage_pred'] = stage_idx + 1 # 0~5 -> 1~6
 

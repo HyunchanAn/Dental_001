@@ -26,7 +26,14 @@ def coral_loss(logits, levels, num_classes=6):
     ordinal_labels = torch.arange(num_classes - 1, device=logits.device).expand(len(levels), -1) < levels.unsqueeze(1)
     ordinal_labels = ordinal_labels.float()
 
-    return nn.BCEWithLogitsLoss(reduction='mean')(logits, ordinal_labels)
+    bce_loss = nn.BCEWithLogitsLoss(reduction='none')(logits, ordinal_labels)
+    
+    # Cost-Sensitive weights: heavier penalty across CS3-CS4 boundary (which is index 2)
+    weights = torch.ones_like(bce_loss)
+    weights[:, 2] = 3.0  # Apply 3.0x weight for CS3/CS4 boundary
+    
+    bce_loss = bce_loss * weights
+    return bce_loss.mean()
 
 def logits_to_prediction(logits):
     """Converts CORAL logits to predicted class levels."""
