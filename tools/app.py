@@ -155,6 +155,8 @@ def load_expert_models():
     classifier = CoralEfficientNet(num_classes=6).to(DEVICE)
     if os.path.exists(CLASSIFIER_PATH):
         try:
+            from src.download_weights import ensure_model_exists
+            ensure_model_exists(os.path.basename(CLASSIFIER_PATH), os.path.dirname(CLASSIFIER_PATH))
             classifier.load_state_dict(torch.load(CLASSIFIER_PATH, map_location=DEVICE))
             st.sidebar.success("📊 CVM Engine: v2 (768px) Active")
         except Exception as e:

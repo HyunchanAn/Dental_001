@@ -21,7 +21,7 @@ from src.landmark.model import UNetHeatmapModel
 # --- Configuration ---
 DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 YOLO_PATH = 'yolo_runs/cvm_detector/weights/best.pt'
-CLASSIFIER_PATH = 'checkpoints/best_cvm_classifier.pth'
+CLASSIFIER_PATH = 'checkpoints/best_cvm_v2_768px.pth'
 NUM_CLASSES = 6
 IMG_SIZE = 512
 
@@ -60,12 +60,15 @@ class CVMInference:
         print("Initializing CVM Inference Pipeline...")
         self.detector = YOLO(YOLO_PATH)
         self.classifier = CoralEfficientNet(num_classes=NUM_CLASSES).to(DEVICE)
+        from src.download_weights import ensure_model_exists
+        ensure_model_exists(os.path.basename(CLASSIFIER_PATH), os.path.dirname(CLASSIFIER_PATH))
         self.classifier.load_state_dict(torch.load(CLASSIFIER_PATH, map_location=DEVICE))
         self.classifier.eval()
         
         # Load landmark model for fallback
         self.landmark_model = UNetHeatmapModel(num_landmarks=config.NUM_LANDMARKS).to(DEVICE)
-        landmark_weights = 'checkpoints/best_model.pth'
+        from src.download_weights import ensure_model_exists
+        landmark_weights = ensure_model_exists('best_model.pth', 'checkpoints')
         if os.path.exists(landmark_weights):
             self.landmark_model.load_state_dict(torch.load(landmark_weights, map_location=DEVICE))
         self.landmark_model.eval()

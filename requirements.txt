@@ -14,4 +14,4 @@ ruff
 fastapi
 uvicorn
 python-multipart
-httpx
+httpxhuggingface-hub

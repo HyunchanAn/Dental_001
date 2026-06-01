@@ -162,7 +162,8 @@ streamlit run tools/app.py
 
 > [!TIP]
 > **AI 가중치 설치 안내 (Installation Guide)**
-> GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소로 관리됩니다. [가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing)에서 파일들을 다운로드하여 아래 경로에 배치해 주세요:
+> GitHub의 파일 크기 제한으로 인해 100MB 이상의 `.pth` 파일은 외부 저장소(Hugging Face)로 관리되며, 앱 실행 시 **자동으로 가중치를 다운로드**하여 checkpoints/ 폴더에 세팅합니다. (수동 다운로드가 필요 없습니다.)
+> **[Hugging Face 모델 저장소 바로가기](https://huggingface.co/chemahc94/Cephalometric-Landmark-CVM)**
 >
 > | 파일명 (Filename) | 배치 경로 (Destination Path) | 비고 (Note) |
 > | :--- | :--- | :--- |
