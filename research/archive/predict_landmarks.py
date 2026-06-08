@@ -56,6 +56,15 @@ def get_true_cvm_stage(image_filename, split):
 def main():
     # --- 1. Load Model ---
     print(f"Loading model from {MODEL_PATH}...")
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from src.download_weights import ensure_model_exists
+    try:
+        ensure_model_exists(os.path.basename(MODEL_PATH), os.path.dirname(MODEL_PATH))
+    except Exception as e:
+        print(f"Failed to check/download model: {e}")
+        
     model = UNetHeatmapModel(num_landmarks=NUM_LANDMARKS).to(DEVICE)
     
     if not os.path.exists(MODEL_PATH):
