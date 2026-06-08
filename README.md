@@ -146,13 +146,21 @@ python -m pytest tests
 
 본 프로젝트는 전문가용 웹 인터페이스를 통해 모든 기능을 One-Stop으로 제공합니다.
 
-### 1. 통합 진단 앱 실행 (Recommended)
+### 1. Docker로 즉시 실행 (Recommended)
+파이썬 환경 설정이나 종속성 설치 없이 가장 빠르고 안정적으로 실행하려면 GitHub Packages에 배포된 공식 Docker 이미지를 사용하세요.
+```bash
+docker run -p 8000:8000 -p 8501:8501 ghcr.io/hyunchanan/automatic-cephalometric-landmark-detection-and-cvm-stage-classification:latest
+```
+*실행 후 브라우저에서 `http://localhost:8501`에 접속하시면 통합 진단 앱(Streamlit)을 즉시 이용하실 수 있습니다.*
+
+### 2. 로컬 파이썬 환경에서 실행
+로컬 소스 코드 환경에서 직접 개발하거나 실행하려면 다음 명령어를 사용합니다.
 ```powershell
 # 고정밀 랜드마크 탐지 및 CVM 분류 통합 도구 실행
 streamlit run tools/app.py
 ```
 
-### 2. 프로젝트 구조 (Project Structure)
+### 3. 프로젝트 구조 (Project Structure)
 - `src/`: 핵심 모델 아키텍처 및 데이터셋 처리 로직
 - `checkpoints/`: 최종 학습된 AI 가중치 저장 폴더 (**[가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing)**)
 - `tools/`: 분석 앱(`app.py`), 라벨링 툴 등 핵심 유틸리티
