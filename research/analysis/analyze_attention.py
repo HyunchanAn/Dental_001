@@ -89,6 +89,14 @@ def visualize_attention(model, dataset, num_samples=5):
 
 if __name__ == '__main__':
     print(f"Loading model from {CHECKPOINT_PATH}...")
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from src.download_weights import ensure_model_exists
+    try:
+        ensure_model_exists(os.path.basename(CHECKPOINT_PATH), os.path.dirname(CHECKPOINT_PATH))
+    except Exception as e:
+        print(f"Failed to check/download model: {e}")
     
     # Load Model
     model = AttentionMIL(num_classes=NUM_CLASSES).to(DEVICE)

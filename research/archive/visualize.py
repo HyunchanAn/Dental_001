@@ -16,6 +16,15 @@ def main(args):
 
     # --- 2. Load Model ---
     print("Loading model...")
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from src.download_weights import ensure_model_exists
+    try:
+        ensure_model_exists("best_model.pth", CHECKPOINT_PATH)
+    except Exception as e:
+        print(f"Failed to check/download model: {e}")
+
     model = AdvancedCephNet().to(DEVICE)
 
     if not os.path.exists(CHECKPOINT_PATH):

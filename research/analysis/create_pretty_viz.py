@@ -77,6 +77,15 @@ def get_prediction(img_path, detector, classifier):
 
 def create_pretty_viz():
     print("Creating premium visualization...")
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from src.download_weights import ensure_model_exists
+    try:
+        ensure_model_exists(os.path.basename(CLASSIFIER_PATH), os.path.dirname(CLASSIFIER_PATH))
+    except Exception as e:
+        print(f"Failed to check/download model: {e}")
+        
     detector = YOLO(YOLO_PATH)
     classifier = CoralEfficientNet(num_classes=NUM_CLASSES).to(DEVICE)
     classifier.load_state_dict(torch.load(CLASSIFIER_PATH, map_location=DEVICE))
