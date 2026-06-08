@@ -137,15 +137,16 @@ st.markdown("Automated Precise Landmark Localization & CVM Maturation Analysis")
 
 @st.cache_resource
 def load_expert_models():
+    from src.download_weights import ensure_model_exists
     # 1. Landmark Heatmap V2 (ResNet-50)
     lm_model = UNetHeatmapModel(num_landmarks=config.NUM_LANDMARKS).to(DEVICE)
-    if os.path.exists(LANDMARK_MODEL_PATH):
-        try:
-            checkpoint = torch.load(LANDMARK_MODEL_PATH, map_location=DEVICE)
-            lm_model.load_state_dict(checkpoint)
-            st.sidebar.success("💎 Landmark Engine: Heatmap V2 Active")
-        except Exception as e:
-            st.sidebar.error(f"❌ Landmark Load Error: {e}")
+    try:
+        ensure_model_exists(os.path.basename(LANDMARK_MODEL_PATH), os.path.dirname(LANDMARK_MODEL_PATH))
+        checkpoint = torch.load(LANDMARK_MODEL_PATH, map_location=DEVICE)
+        lm_model.load_state_dict(checkpoint)
+        st.sidebar.success("💎 Landmark Engine: Heatmap V2 Active")
+    except Exception as e:
+        st.sidebar.error(f"❌ Landmark Load Error: {e}")
     lm_model.eval()
     
     # 2. CVM Detector (YOLO)
@@ -153,14 +154,12 @@ def load_expert_models():
     
     # 3. CVM Classifier V2 (768px CORAL)
     classifier = CoralEfficientNet(num_classes=6).to(DEVICE)
-    if os.path.exists(CLASSIFIER_PATH):
-        try:
-            from src.download_weights import ensure_model_exists
-            ensure_model_exists(os.path.basename(CLASSIFIER_PATH), os.path.dirname(CLASSIFIER_PATH))
-            classifier.load_state_dict(torch.load(CLASSIFIER_PATH, map_location=DEVICE))
-            st.sidebar.success("📊 CVM Engine: v2 (768px) Active")
-        except Exception as e:
-            st.sidebar.error(f"❌ CVM Load Error: {e}")
+    try:
+        ensure_model_exists(os.path.basename(CLASSIFIER_PATH), os.path.dirname(CLASSIFIER_PATH))
+        classifier.load_state_dict(torch.load(CLASSIFIER_PATH, map_location=DEVICE))
+        st.sidebar.success("📊 CVM Engine: v2 (768px) Active")
+    except Exception as e:
+        st.sidebar.error(f"❌ CVM Load Error: {e}")
     classifier.eval()
     
     return lm_model, detector, classifier

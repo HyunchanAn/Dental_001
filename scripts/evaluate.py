@@ -96,6 +96,17 @@ def main():
 
     # --- Load Model ---
     print(f"Loading best model from {MODEL_PATH}...")
+    
+    # Ensure model is downloaded from Hugging Face if not present
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent))
+    from src.download_weights import ensure_model_exists
+    try:
+        ensure_model_exists(os.path.basename(MODEL_PATH), os.path.dirname(MODEL_PATH))
+    except Exception as e:
+        print(f"Failed to check/download model: {e}")
+
     model = HeatmapModel(num_landmarks=NUM_LANDMARKS).to(DEVICE)
     if not os.path.exists(MODEL_PATH):
         print(f"ERROR: Model file not found at {MODEL_PATH}.")
