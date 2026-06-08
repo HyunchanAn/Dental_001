@@ -739,3 +739,12 @@ Original project: https://github.com/manwaarkhd/aariz
 - tools/inference.py: CVM 모델 예측 결과의 분산(Variance) 기반 Uncertainty Filter 로직을 도입하여 임상 오분류(False Positive) 방지 (Issue #3)
 - scripts/train_mil.py: CS3과 CS4 경계 간 오분류 페널티를 강화(가중치 3.0)하는 Cost-Sensitive CORAL Loss 구현 (Issue #3)
 - 이슈 #1, #2, #3 해결 완료.
+
+
+##### 2026.06.08 (11일차) 집 #####
+
+### 47. 가중치 파일 자동 다운로드 로직 적용 및 LFS 의존성 제거
+- 목표: 기존 GitHub LFS 기반의 용량 큰 가중치 파일(.pth) 관리 방식에서 벗어나, 실행 시 Hugging Face Hub로부터 자동으로 다운로드 및 캐싱되도록 개선함.
+- 구현: tools/app.py, tools/api.py, scripts/evaluate.py 등 모델을 로드하는 주요 스크립트에 src/download_weights.py의 ensure_model_exists 로직을 최우선으로 실행하도록 추가함.
+- 추가 조치: 더 이상 LFS가 필요 없으므로 .gitattributes 파일을 삭제하고 Git 추적 목록에서 .pth 파일들을 제외함.
+- 결과: 사용자가 프로젝트 클론 후 별도의 가중치 다운로드나 LFS 설치 없이 즉시 시스템을 실행할 수 있게 되어 편의성이 크게 향상됨.
