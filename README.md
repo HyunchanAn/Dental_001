@@ -31,7 +31,7 @@
 ## 최종 성과 (Achievements)
 
 ### 1. 랜드마크 탐지 (Landmark Detection)
-- **성능:** **MRE (평균 반경 오차) 4.25 px** 달성
+- **성능:** **MRE (평균 반경 오차) 3.86 px** 달성
 - **기술:** ResNet-50 기반 UNet + 256px 고해상도 히트맵 회귀
 - **의미:** 임상적 허용 오차(2.0mm) 이내 완벽 진입 (약 1.83mm 오차) 및 랜드마크 뭉침 현상 완전 해결
 
@@ -99,7 +99,7 @@ sequenceDiagram
 ### 3. 최종 평가 결과 (Final Results)
 | Task | Dataset | Metric | Result | Target (Clinical) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Landmark Detection** | Aariz Test Set | **MRE (px)** | **4.2469 px** | < 4.6 px (2.0mm) |
+| **Landmark Detection** | Aariz Test Set | **MRE (px)** | **3.8612 px** | < 4.6 px (2.0mm) |
 | **CVM Classification** | Aariz Valid Set | **QW Kappa** | **0.6123** | > 0.60 (Strong) |
 | **CVM Classification** | Aariz Valid Set | **Accuracy** | **45.05%** | - |
 

@@ -8,17 +8,17 @@ from tqdm import tqdm
 import albumentations as A
 
 # Use the model and dataset compatible with our best performing model
-from model import HeatmapModel # Reverted to the correct model class for the saved weights
+from model import UNetHeatmapModel as HeatmapModel # Use UNet model
 from dataset import HeatmapDataset 
 from config import DATASET_PATH, NUM_LANDMARKS
 
 # --- Configuration ---
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-# --- Settings for our best model (MRE 4.5px) ---
-MODEL_PATH = 'models/model_heatmap_resnet50_finetuned_mre4.5.pth'
-IMAGE_SIZE = (256, 256)
-HEATMAP_OUTPUT_SIZE = (64, 64) # 256 / 4 = 64
+# --- Settings for our best model (UNet Transfer 512px) ---
+MODEL_PATH = 'checkpoints/best_unet_transfer_model_512px.pth'
+IMAGE_SIZE = (512, 512)
+HEATMAP_OUTPUT_SIZE = (256, 256) # 512 / 2 = 256
 BATCH_SIZE = 16
 
 def get_coords_from_heatmaps(heatmaps, image_size, heatmap_size):
