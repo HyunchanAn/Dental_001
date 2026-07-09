@@ -748,3 +748,11 @@ Original project: https://github.com/manwaarkhd/aariz
 - 구현: tools/app.py, tools/api.py, scripts/evaluate.py 등 모델을 로드하는 주요 스크립트에 src/download_weights.py의 ensure_model_exists 로직을 최우선으로 실행하도록 추가함.
 - 추가 조치: 더 이상 LFS가 필요 없으므로 .gitattributes 파일을 삭제하고 Git 추적 목록에서 .pth 파일들을 제외함.
 - 결과: 사용자가 프로젝트 클론 후 별도의 가중치 다운로드나 LFS 설치 없이 즉시 시스템을 실행할 수 있게 되어 편의성이 크게 향상됨.
+
+##### 2026-07-10 E2E Validation #####
+
+### E2E Validation 및 모델 평가 성공
+- Dental_000 통합 검증 계획에 따라 Dental_001의 E2E 파이프라인 검증을 실시함.
+- `evaluate.py` 스크립트를 최신 U-Net 모델(`best_unet_transfer_model_512px.pth`)에 맞게 패치하여 평가를 진행.
+- 평가 결과: 랜드마크 MRE(Mean Radial Error)가 기존 4.50px에서 3.8612px로 획기적으로 개선됨을 확인.
+- `reports_archive/` 내에 `260710_0834_Cephalometric_BoneAge_E2E_Validation_Report.md` 리포트 생성을 완료하고, 이 성과를 반영하여 README.md 및 개발일지를 업데이트함.
