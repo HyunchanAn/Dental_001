@@ -228,6 +228,7 @@ pip install ultralytics
 
 ## References
 
+- **Aariz Dataset**: A comprehensive, benchmark dataset of lateral cephalometric radiographs. [DOI: 10.6084/m9.figshare.27986417.v1](https://doi.org/10.6084/m9.figshare.27986417.v1)
 - **Lee, J. Y.** (2002). Equipotential line method for magnetic resonance electrical impedance tomography. *Inverse Problems*, 18(4), 310. [DOI: 10.1088/0266-5611/18/4/310](https://doi.org/10.1088/0266-5611/18/4/310)
 - **Lee, J. Y.** (2004). A reconstruction formula and uniqueness of conductivity in MREIT using two internal current distributions. *Inverse Problems*, 20(3), 012. [DOI: 10.1088/0266-5611/20/3/012](https://doi.org/10.1088/0266-5611/20/3/012)
 
