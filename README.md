@@ -1,4 +1,4 @@
-﻿# Automatic Cephalometric Landmark Detection & CVM Stage Classification
+# Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
 ![Status](https://img.shields.io/badge/Status-v2.0_Stable-green) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![Backend](https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red) ![Hardware](https://img.shields.io/badge/Hardware-RTX_5080-orange) ![UI](https://img.shields.io/badge/UI-Streamlit-blue) ![CI/CD Pipeline](https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg)
 
@@ -36,7 +36,8 @@
 - **성능:** **Quadratic Weighted Kappa 0.6123** 달성 (768px 고해상도 학습)
 - **기술:** 고해상도 ROI 추출 및 순서 예측(Ordinal Regression)을 통한 임상적 일관성 확보
 
-![Status](https://img.shields.io/badge/Status-v2.0_Stable-green) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![Backend](https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red) ![Hardware](https://img.shields.io/badge/Hardware-RTX_5080-orange) ![UI](https://img.shields.io/badge/UI-Streamlit-blue) ![CI/CD Pipeline](https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg)
+<br>
+<img src="docs/assets/inference_results.png" width="800">
 
 ---
 
