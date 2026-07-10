@@ -1,21 +1,17 @@
-# Automatic Cephalometric Landmark Detection & CVM Stage Classification
+﻿# Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Status-v2.0_Stable-green?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Python-3.14-blue?style=flat-square&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red?style=flat-square&logo=pytorch&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Hardware-RTX_5080-orange?style=flat-square&logo=nvidia&logoColor=white"/>
-  <img src="https://img.shields.io/badge/UI-Streamlit-blue?style=flat-square&logo=streamlit&logoColor=white"/>
-  <a href="https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml"><img src="https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg" alt="Python CI" valign="middle"/></a>
-</p>
+![Status](https://img.shields.io/badge/Status-v2.0_Stable-green) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![Backend](https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red) ![Hardware](https://img.shields.io/badge/Hardware-RTX_5080-orange) ![UI](https://img.shields.io/badge/UI-Streamlit-blue) ![CI/CD Pipeline](https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg)
 
+## 개요
 본 프로젝트는 고정밀 랜드마크 탐지와 경추 성숙도(CVM) 단계 분류를 결합한 통합 두부 계측 분석 솔루션입니다. RTX 5080 기반의 고해상도 학습 환경을 통해 전문의 수준의 판독 정밀도를 제공합니다.
 
 ---
 
 
 
-## 📥 Dataset & Model Checkpoints Setup
+## 설치 및 실행 방법
+
+### Dataset & Model Checkpoints Setup
 이 프로젝트는 대용량 데이터셋과 사전 학습된 모델 가중치(Checkpoints)가 필요합니다. 
 (GitHub에는 소스코드만 올라가 있습니다.)
 
@@ -40,9 +36,7 @@
 - **성능:** **Quadratic Weighted Kappa 0.6123** 달성 (768px 고해상도 학습)
 - **기술:** 고해상도 ROI 추출 및 순서 예측(Ordinal Regression)을 통한 임상적 일관성 확보
 
-<p align="center">
-  <img src="docs/assets/inference_results.png" width="800">
-</p>
+![Status](https://img.shields.io/badge/Status-v2.0_Stable-green) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![Backend](https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red) ![Hardware](https://img.shields.io/badge/Hardware-RTX_5080-orange) ![UI](https://img.shields.io/badge/UI-Streamlit-blue) ![CI/CD Pipeline](https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg)
 
 ---
 
@@ -157,7 +151,7 @@ python -m pytest tests
 
 ---
 
-## 실행 가이드 (Quick Start)
+### 실행 가이드 (Quick Start)
 
 본 프로젝트는 전문가용 웹 인터페이스를 통해 모든 기능을 One-Stop으로 제공합니다.
 
@@ -197,7 +191,7 @@ streamlit run tools/app.py
 
 ---
 
-## 환경 설정 (Environment)
+### 환경 설정 (Environment)
 ```bash
 pip install -r requirements.txt
 # 추가 라이브러리 (YOLOv8 등)
@@ -231,4 +225,5 @@ pip install ultralytics
 - **Aariz Dataset**: A comprehensive, benchmark dataset of lateral cephalometric radiographs. [DOI: 10.6084/m9.figshare.27986417.v1](https://doi.org/10.6084/m9.figshare.27986417.v1)
 - **Lee, J. Y.** (2002). Equipotential line method for magnetic resonance electrical impedance tomography. *Inverse Problems*, 18(4), 310. [DOI: 10.1088/0266-5611/18/4/310](https://doi.org/10.1088/0266-5611/18/4/310)
 - **Lee, J. Y.** (2004). A reconstruction formula and uniqueness of conductivity in MREIT using two internal current distributions. *Inverse Problems*, 20(3), 012. [DOI: 10.1088/0266-5611/20/3/012](https://doi.org/10.1088/0266-5611/20/3/012)
+
 
