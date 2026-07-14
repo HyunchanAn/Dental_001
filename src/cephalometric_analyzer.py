@@ -95,21 +95,25 @@ class CephalometricAnalyzer:
         fma = calculate_angle_2lines(self._get("Po"), self._get("Or"), self._get("Go"), self._get("Me"))
         if fma is not None:
             # FMA is usually acute
-            if fma > 90: fma = 180 - fma
+            if fma > 90:
+                fma = 180 - fma
             results["FMA"] = self._format_result("FMA", fma)
 
         # 5. IMPA (Lower Incisor (LIA-LIT) to Mandibular Plane (Go-Me))
         impa = calculate_angle_2lines(self._get("LIA"), self._get("LIT"), self._get("Go"), self._get("Me"))
         if impa is not None:
             # IMPA is usually the inner angle
-            if impa > 180: impa = 360 - impa
-            if impa > 130: impa = 180 - impa
+            if impa > 180:
+                impa = 360 - impa
+            if impa > 130:
+                impa = 180 - impa
             results["IMPA"] = self._format_result("IMPA", impa)
 
         # 6. U1 to SN (Upper Incisor (UIA-UIT) to SN plane (S-N))
         u1_sn = calculate_angle_2lines(self._get("UIA"), self._get("UIT"), self._get("S"), self._get("N"))
         if u1_sn is not None:
-            if u1_sn > 130: u1_sn = 180 - u1_sn
+            if u1_sn > 130:
+                u1_sn = 180 - u1_sn
             results["U1_to_SN"] = self._format_result("U1_to_SN", u1_sn)
 
         # 7. Gonial Angle (Ar - Go - Me)
