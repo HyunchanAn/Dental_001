@@ -14,6 +14,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 from src import config
 from src.landmark.model import UNetHeatmapModel
+from src.cephalometric_analyzer import CephalometricAnalyzer
 
 # --- Configuration ---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
@@ -210,6 +211,17 @@ if uploaded_file:
             with torch.no_grad():
                 outputs = lm_model(lm_input)
                 coords = get_coords_from_heatmaps(outputs, (h, w), HEATMAP_OUTPUT_SIZE)[0].cpu().numpy()
+                
+            # Create landmarks_dict for Cephalometric Analyzer
+            landmarks_dict = {}
+            for i, (lx, ly) in enumerate(coords):
+                key = list(config.ANATOMICAL_LANDMARKS.keys())[i]
+                symbol = config.ANATOMICAL_LANDMARKS[key]['symbol']
+                landmarks_dict[symbol] = (lx, ly)
+                
+            # Run Cephalometric Analysis
+            analyzer = CephalometricAnalyzer(landmarks_dict)
+            ceph_results = analyzer.analyze()
             
             # --- 2. Pipeline: CVM ---
             status.text("Isolating Cervical Vertebrae ROI...")
@@ -286,6 +298,18 @@ if uploaded_file:
                 key = list(config.ANATOMICAL_LANDMARKS.keys())[i]
                 symbol = config.ANATOMICAL_LANDMARKS[key]['symbol']
                 draw.text((lx + dot_r + 5, ly - dot_r), symbol, font=font, fill=(255, 255, 255, 255))
+                
+            # 2.5 Draw Cephalometric Planes (S-N, N-A, N-B, Go-Me, etc.)
+            def draw_plane(sym1, sym2, color):
+                if sym1 in landmarks_dict and sym2 in landmarks_dict:
+                    p1 = landmarks_dict[sym1]
+                    p2 = landmarks_dict[sym2]
+                    draw.line([p1[0], p1[1], p2[0], p2[1]], fill=color, width=2)
+                    
+            draw_plane("S", "N", (255, 255, 0, 180)) # SN Plane
+            draw_plane("N", "A", (255, 0, 255, 180)) # NA Plane
+            draw_plane("N", "B", (0, 255, 255, 180)) # NB Plane
+            draw_plane("Go", "Me", (0, 255, 0, 180)) # Mandibular Plane
 
             # 3. Draw CVM ROI
             if cvm_bbox:
@@ -315,6 +339,28 @@ if uploaded_file:
                     item = config.ANATOMICAL_LANDMARKS[key]
                     df_rows.append({"ID": i+1, "Symbol": item['symbol'], "Landmark Name": item['title'], "X": f"{lx:.2f}", "Y": f"{ly:.2f}"})
                 st.dataframe(df_rows, hide_index=True, use_container_width=True)
+                
+            st.subheader("📐 Cephalometric Analysis")
+            ceph_rows = []
+            for metric, data in ceph_results.items():
+                ceph_rows.append({
+                    "Measurement": metric,
+                    "Value": data["value"],
+                    "Norm (Mean ± SD)": f"{data['norm_mean']} ± {data['norm_sd']}",
+                    "Status": data["status"]
+                })
+            
+            # Format dataframe to highlight abnormal values
+            if ceph_rows:
+                import pandas as pd
+                ceph_df = pd.DataFrame(ceph_rows)
+                def color_status(val):
+                    color = '#ff4b4b' if val in ['High', 'Low'] else '#2ea043'
+                    return f'color: {color}; font-weight: bold'
+                
+                st.dataframe(ceph_df.style.map(color_status, subset=['Status']), hide_index=True, use_container_width=True)
+            else:
+                st.info("Cephalometric measurements could not be calculated.")
 
 if os.path.exists("app_temp_inf.jpg"):
     os.remove("app_temp_inf.jpg")
