@@ -1,3 +1,4 @@
+![Hugging Face](https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface)
 # Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
 ![Status](https://img.shields.io/badge/Status-v2.0_Stable-green) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![Backend](https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red) ![Hardware](https://img.shields.io/badge/Hardware-RTX_5080-orange) ![UI](https://img.shields.io/badge/UI-Streamlit-blue) ![CI/CD Pipeline](https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg)
@@ -8,6 +9,14 @@
 ---
 
 
+
+
+## 📦 Model Weights (Hugging Face)
+이 모듈의 학습된 가중치 모델은 Hugging Face 저장소에 연동되어 있습니다. 
+아래 링크에서 다운로드할 수 있습니다:
+- [Hugging Face Repository (chemahc94/Dental-AI-Models)](https://huggingface.co/chemahc94/Dental-AI-Models/tree/main/Dental_001)
+
+다운로드한 가중치 파일은 이 레포지토리의 해당 모델 폴더에 배치하여 사용하세요.
 
 ## 설치 및 실행 방법
 
