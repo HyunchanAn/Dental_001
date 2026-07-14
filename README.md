@@ -1,4 +1,4 @@
-![Hugging Face](https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface)
+![Status](https://img.shields.io/badge/Status-v1.0%20Release-brightgreen) ![Python](https://img.shields.io/badge/Python-3.12%2B-blue) ![Backend](https://img.shields.io/badge/Backend-YOLOv8-red) ![UI](https://img.shields.io/badge/UI-Streamlit-orange) ![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD%20Pipeline-passing-brightgreen?logo=github)
 # Automatic Cephalometric Landmark Detection & CVM Stage Classification
 
 ![Status](https://img.shields.io/badge/Status-v2.0_Stable-green) ![Python](https://img.shields.io/badge/Python-3.14-blue) ![Backend](https://img.shields.io/badge/Backend-PyTorch_&_YOLOv8-red) ![Hardware](https://img.shields.io/badge/Hardware-RTX_5080-orange) ![UI](https://img.shields.io/badge/UI-Streamlit-blue) ![CI/CD Pipeline](https://github.com/HyunchanAn/Automatic-Cephalometric-Landmark-Detection-and-CVM-Stage-Classification/actions/workflows/ci.yml/badge.svg)
