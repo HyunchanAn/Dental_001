@@ -11,8 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Checkout Central Tests
+      uses: actions/checkout@v4
+      with:
+        repository: HyunchanAn/Dental_000
+        path: Dental_000
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
@@ -35,9 +41,9 @@ jobs:
       run: |
         ruff check .
 
-    - name: Run tests with pytest and coverage
+    - name: Run Dental_000/tests_001/ with PYTHONPATH=${{ github.workspace }} pytest and coverage
       run: |
-        python -m pytest --cov=src --cov=tools tests/
+        PYTHONPATH=${{ github.workspace }} python -m pytest --cov=src --cov=tools Dental_000/tests_001//
 
     - name: Build Python packages (Sdist & Wheel)
       run: |
