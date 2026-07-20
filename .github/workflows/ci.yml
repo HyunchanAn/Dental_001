@@ -41,9 +41,9 @@ jobs:
       run: |
         ruff check . || echo "Ruff failed but continuing"
 
-    - name: Run Dental_000/tests/tests_001/ with PYTHONPATH=${{ github.workspace }} pytest and coverage
+    - name: Run . with PYTHONPATH=${{ github.workspace }} pytest and coverage
       run: |
-        PYTHONPATH=${{ github.workspace }} python -m pytest --cov=src --cov=tools Dental_000/tests/tests_001//
+        PYTHONPATH=${{ github.workspace }} python -m pytest --cov=src --cov=tools ./
 
     - name: Build Python packages (Sdist & Wheel)
       run: |
