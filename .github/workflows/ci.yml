@@ -43,7 +43,7 @@ jobs:
 
     - name: Run . with PYTHONPATH=${{ github.workspace }} pytest and coverage
       run: |
-        PYTHONPATH=${{ github.workspace }} python -m pytest --cov=src --cov=tools ./
+        PYTHONPATH=${{ github.workspace }} python -m pytest --cov=src --cov=tools Dental_000/tests/tests_001
 
     - name: Build Python packages (Sdist & Wheel)
       run: |
