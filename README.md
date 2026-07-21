@@ -237,3 +237,7 @@ pip install ultralytics
 - **Lee, J. Y.** (2004). A reconstruction formula and uniqueness of conductivity in MREIT using two internal current distributions. *Inverse Problems*, 20(3), 012. [DOI: 10.1088/0266-5611/20/3/012](https://doi.org/10.1088/0266-5611/20/3/012)
 
 
+
+
+## 가중치 백업 안내
+오래된 이전 가중치 파일(Legacy Backups)은 통일성을 위해 Emergency_Weights_Vault/Dental_001/Backup_Checkpoints 폴더에 별도로 안전하게 보존되어 있습니다.
