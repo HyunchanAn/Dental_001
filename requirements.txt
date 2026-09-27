@@ -16,4 +16,4 @@ uvicorn
 python-multipart
 httpx
 huggingface-hub
-git+https://github.com/HyunchanAn/Dental_Core.git@master
+git+https://github.com/HyunchanAn/Dental_Core.git@main
