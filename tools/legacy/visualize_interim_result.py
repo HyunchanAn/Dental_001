@@ -27,7 +27,15 @@ def get_coords_from_heatmaps(heatmaps, image_size, heatmap_size):
     return coords
 
 def visualize():
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    env_device = os.getenv("DEVICE", "auto").strip().lower()
+    if env_device and env_device != "auto":
+        device = torch.device(env_device)
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")
+    elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
     model_path = 'checkpoints/best_unet_transfer_model_512px.pth'
     
     model = UNetHeatmapModel(num_landmarks=NUM_LANDMARKS).to(device)

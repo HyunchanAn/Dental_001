@@ -1,7 +1,7 @@
 MIT License
 
-Copyright (c) 2023 Muhammad Anwaar Khalid (Original Aariz Landmark Detection Code)
-Copyright (c) 2026 Hyunchan An (Modifications, CVM Pipeline, ONNX Integration & Evaluation)
+Copyright (c) 2023 Muhammad Anwaar Khalid
+Copyright (c) 2026 Hyunchan An (Modifications, CVM Pipeline & ONNX Integration)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,9 @@ SOFTWARE.
 -------------------------------------------------------------------------------
 DATASET ATTRIBUTION & MODIFICATION NOTICE (CC BY 4.0):
 The derived CVM ROI images in `Aariz_CVM_Clean/` are adapted from the Aariz
-Cephalometric Dataset (Khalid et al., Figshare, DOI: 10.6084/m9.figshare.22186789),
-licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+Cephalometric Dataset (Khalid et al., Figshare, DOI: 10.6084/m9.figshare.22186789 /
+10.6084/m9.figshare.27986417.v1), licensed under Creative Commons Attribution 4.0
+International (CC BY 4.0).
 Modifications made: Cervical vertebrae (C2-C4) region-of-interest (ROI) cropping
-to 512x512 resolution and quality filtering across 6 CVM stages (637 images).
+to 512x512 resolution and quality filtering/cleaning across 6 CVM stages
+(637 radiographs redistributed under CC BY 4.0).
