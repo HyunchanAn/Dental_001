@@ -50,3 +50,10 @@
 ### Manual Verification
 - `docs/assets/inference_results.png` 시각화를 통해, 이전 버전에서 오분류되었던 모호한 CS3/CS4 데이터가 올바르게 분류되거나 'Uncertain'으로 보류되는지 육안 확인.
 - YOLO 실패 데이터에 대해 그려진 Fallback ROI BBox가 실제 C2-C4 위치를 어느 정도 커버하는지 시각적 확인.
+
+---
+
+# [ 261021 2330 랩탑 개발팀 ] CVM 역문제 전처리·Fallback ROI·Cost-Sensitive CORAL 구현 완료 및 공식 종결 (`[CLOSED]`)
+
+- 상태: 공식 종결 (`[CLOSED]`)
+- 이행 결과: 본 계획서의 3대 핵심 과제(`src/cvm/inverse_filter.py`의 `apply_equipotential_filter`, `tools/inference.py`의 랜드마크 기반 Fallback ROI 및 불확실성 가드, `src/cvm/model_mil.py`의 `CostSensitiveCoralLoss`) 및 단위 테스트 검증이 모두 구현 완료되었으므로 본 계획서를 `[CLOSED]` 처리한다(차기 고도화 로드맵은 `docs/v2_optimization_plan.md` 참조).
