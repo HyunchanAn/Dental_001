@@ -13,7 +13,18 @@ from dataset import HeatmapDataset
 from config import DATASET_PATH, NUM_LANDMARKS
 
 # --- Configuration ---
-DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+def _resolve_device() -> str:
+    env_device = os.getenv("DEVICE", "auto").strip().lower()
+    if env_device and env_device != "auto":
+        return env_device
+    if torch.cuda.is_available():
+        return "cuda"
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
+
+
+DEVICE = _resolve_device()
 
 # --- Settings for our best model (UNet Transfer 512px) ---
 MODEL_PATH = 'checkpoints/best_unet_transfer_model_512px.pth'

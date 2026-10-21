@@ -18,7 +18,18 @@ from src import config
 from src.landmark.model import UNetHeatmapModel
 
 # --- Configuration ---
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
+def _resolve_device() -> torch.device:
+    env_device = os.getenv("DEVICE", "auto").strip().lower()
+    if env_device and env_device != "auto":
+        return torch.device(env_device)
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
+
+
+DEVICE = _resolve_device()
 LANDMARK_MODEL_PATH = 'checkpoints/best_unet_transfer_model_512px.pth'
 YOLO_PATH = 'yolo_runs/cvm_detector/weights/best.pt'
 CLASSIFIER_PATH = 'checkpoints/best_cvm_v2_768px.pth'
