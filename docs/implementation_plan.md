@@ -56,4 +56,4 @@
 # [ 261021 2330 랩탑 개발팀 ] CVM 역문제 전처리·Fallback ROI·Cost-Sensitive CORAL 구현 완료 및 공식 종결 (`[CLOSED]`)
 
 - 상태: 공식 종결 (`[CLOSED]`)
-- 이행 결과: 본 계획서의 3대 핵심 과제(`src/cvm/inverse_filter.py`의 `apply_equipotential_filter`, `tools/inference.py`의 랜드마크 기반 Fallback ROI 및 불확실성 가드, `src/cvm/model_mil.py`의 `CostSensitiveCoralLoss`) 및 단위 테스트 검증이 모두 구현 완료되었으므로 본 계획서를 `[CLOSED]` 처리한다(차기 고도화 로드맵은 `docs/v2_optimization_plan.md` 참조).
+- 이행 결과: 본 계획서의 3대 핵심 과제(`src/cvm/inverse_filter.py`의 `apply_equipotential_filter`, `tools/inference.py`의 랜드마크 기반 Fallback ROI 및 불확실성 가드, `src/cvm/model_mil.py`의 `CostSensitiveCoralLoss`) 및 단위 테스트 검증이 모두 구현 완료되었으므로 본 계획서를 `[CLOSED]` / `[PASS]` 완결 처리한다(차기 고도화 로드맵은 `docs/v2_optimization_plan.md` 참조).
