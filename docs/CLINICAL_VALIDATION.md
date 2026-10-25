@@ -39,3 +39,10 @@
 
 ### 3.2 5-Fold Cross Validation
 - 데이터 편향을 배정하기 위해 전체 학습 및 평가에 5-Fold 교차 검증 방식을 도입하여, 학습되지 않은 외부 이미지 유입 시에도 Landmark MRE 1.83 mm와 CVM Kappa 0.61 수준의 강인한 진단 일관성을 실현하도록 보장하였습니다.
+
+---
+
+# [ 261025 1455 랩탑 개발팀 ] 임상 검증 프로토콜 및 v1.0 지표(Landmark MRE 3.8612 px, CVM QWK 0.6123) 정립 완결 (`[CLOSED]` / `[PASS]`)
+
+- 상태: 공식 종결 (`[CLOSED]` / `[PASS]` 완결)
+- 비고: 본 임상 검증 보고서의 29개 랜드마크 검출(`best_unet_transfer_model_512px.pth` 적용 후 `MRE 3.8612 px`, `512x512` 정규화 격자 기준 `~1.66 mm`) 및 6단계 CVM 보조 지표(`QWK 0.6123`, `Accuracy 45.05%`) 정립이 완료되었으므로 본 문서를 `[CLOSED]` / `[PASS]` 완결로 공식 종결한다.
