@@ -23,7 +23,7 @@ COPY requirements.txt .
 
 # Install Python package dependencies
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+    pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt
 
 # Copy all project files into the container
 COPY . .

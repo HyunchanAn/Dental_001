@@ -700,3 +700,6 @@
 2026-10-25
 - `docs/CLINICAL_VALIDATION.md` 및 `docs/v2_optimization_plan.md` 공식 종결(`[CLOSED]` / `[PASS]` 완결) 명시 완료.
 - 루트 `development_log.txt` 및 `docs/development_log.txt` 양식 통일(내용 100% 보존) 및 동기화 완료.
+
+2026-10-28
+- 이슈 #11 해결: `.github/workflows/publish-ghcr.yml` 29~48행 YAML 들여쓰기 구문 오류를 교정하고 `docker/metadata-action@v5` 태그 규칙 및 `Dockerfile` CPU PyTorch 휠 인덱스 최적화를 적용하여 GHCR 컨테이너 이미지 빌드·배포 워크플로우 정상화 완료.
