@@ -69,13 +69,14 @@ sequenceDiagram
 
 ### 3. 프로젝트 구조 (Project Structure)
 - `src/`: 핵심 모델 아키텍처 및 데이터셋 처리 로직
-- `checkpoints/`: 최종 학습된 AI 가중치 저장 폴더 ([가중치 다운로드 링크](https://drive.google.com/drive/folders/1ofmIOL9ZL_w3OY3db3RjqHBX28yR0hFq?usp=sharing))
+- `checkpoints/`: 최종 학습된 AI 가중치 저장 폴더 ([가중치 다운로드 링크 (`chemahc94/Dental_001_Model`)](https://huggingface.co/chemahc94/Dental_001_Model))
 - `tools/`: 분석 앱(`app.py`), 추론 스크립트(`inference.py`), FastAPI 서버(`api.py`) 등 핵심 유틸리티
 - `docs/`: 개발 로그 및 시각화 자산 상세 설명서
 - `scripts/`: 모델 재학습 및 성능 평가 스크립트
 - `training_log/`: 훈련 지표 및 손실 곡선 기록물
 
 ### 4. 모델 가중치 (Model Weights on Hugging Face)
+- [Hugging Face Repository (`chemahc94/Dental_001_Model`)](https://huggingface.co/chemahc94/Dental_001_Model)
 - [Hugging Face Repository (`chemahc94/Dental-AI-Models`)](https://huggingface.co/chemahc94/Dental-AI-Models/tree/main/Dental_001)
 - [Hugging Face Repository (`chemahc94/Cephalometric-Landmark-CVM`)](https://huggingface.co/chemahc94/Cephalometric-Landmark-CVM)
 
