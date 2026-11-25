@@ -1,4 +1,4 @@
-![Status](https://img.shields.io/badge/Status-v1.0%20Landmark%20%2F%20CVM%20Prototype-yellowgreen "Status") ![Python](https://img.shields.io/badge/Python-3.12%2B-blue "Python") ![Backend](https://img.shields.io/badge/Backend-YOLOv8%20%2F%20ONNX-red "Backend") ![UI](https://img.shields.io/badge/UI-Streamlit-orange "UI") ![License](https://img.shields.io/badge/License-MIT-green "License") ![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD%20Pipeline-passing-brightgreen?logo=github "CI/CD Pipeline")
+﻿![Status](https://img.shields.io/badge/Status-v1.0%20Landmark%20%2F%20CVM%20Prototype-yellowgreen "Status") ![Python](https://img.shields.io/badge/Python-3.10%2B-blue "Python") ![Backend](https://img.shields.io/badge/Backend-YOLOv8%20%2F%20ONNX-red "Backend") ![UI](https://img.shields.io/badge/UI-Streamlit-orange "UI") ![License](https://img.shields.io/badge/License-MIT-green "License") ![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD%20Pipeline-passing-brightgreen?logo=github "CI/CD Pipeline")
 
 # Dental_001: Automatic Cephalometric Landmark Detection & CVM Stage Classification (두부계측 랜드마크 탐지 및 경추 성숙도 분류)
 
